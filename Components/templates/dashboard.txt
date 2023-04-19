@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <div>
+        <p class="location">Dashboard</h1>
+        <p id="welcome"></p>
+    </div>
+
+    <div id="containerGrey"></div>
+
+    <div class="schedules">
+        <div style="display: flex; gap: 470px;">
+            <p>Your schedules</p><a href="#" class = "text">View all schedules-></a>
+        </div>
+        <div class="cards">
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+        </div>
+    </div>
+
+    <div class="activities" style="display: flex; margin-top: 13px; gap: 20px;">  
+        <div>
+            <p>Your activity</p>
+            <div id="actdiv"></div>
+        </div>
+        <div>
+            <p>Your class activity</p>
+            <div class="class-activity"></div>
+        </div>
+    </div>
+</div>
+

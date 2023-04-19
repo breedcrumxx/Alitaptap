@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+.container {
+    width: 1150px;
+    height: 613px;
+    display: flex;
+} 
+
+.before-left {
+    position: absolute;
+    width: 51%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    /* border: 1px solid red; */
+    background-color: #17156D;
+}
+
+.left-side {
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    border-bottom-right-radius: 50px;
+    /* border: 1px solid red; */
+}
+
+.statements {
+    /* border: 1px solid red; */
+    padding-top: 60px;
+    padding-left: 30px;
+}
+
+.statements h1,
+.statements h2,
+.statements p {
+    color: black;
+    text-align: left;
+}
+
+.neust-logo {
+    position: absolute;
+    width: 180px;
+    z-index: 1;
+    left: 0; 
+    right: 0; 
+    top: 0;
+    bottom: 0;
+    margin: auto;   
+}
+
+.right-side {
+    width: 50%;
+    height: 100%;
+    background:#17156D;
+    border-top-left-radius: 50px;
+    position: relative;
+}
+
+.right-side::before {
+    position: absolute;
+    content: '';
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    z-index: -1;
+}
+
+.form-container {
+    width: 340px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    color: white;
+    background-color: #111056;
+    border-radius: 10px;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    height: 30px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: inline-block; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=button] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=button]:hover {
+    background-color: #45a049;
+}
+
+.logo {
+    position: absolute;
+    top: 428px;
+    left: 30px;
+}
+
+.active {
+    left: 0;
+}
+
+.cont-active {
+    position: absolute;
+    z-index: -1;
+}

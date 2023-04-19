@@ -1,0 +1,69 @@
+    <div class="container">
+        <!-- nav div -->
+        <div class="nav">
+            <div class="logo">
+                <img src="https://doc-00-bg-docs.googleusercontent.com/docs/securesc/1i639qsrb4os93pou0m7rjqogo96gkao/a6gmibkgr4id50hlu97h0pf22nnr6sp6/1681347675000/04492705916459634682/04492705916459634682/1YUmDpg1Pxy7qtGpMNWe6RuApvbJc3A79?e=view&ax=ALy03A72NNDsCRfohCnF4m5OgpVXT9smbw3hQm6931dXVTN3DPOCbHigz54y5zdxIYxjxC4HeV8JAQerKubN9gF2pzhfw71Qqnhzww57T-62bO2Cg-UmbehbyxhgJF-65JdvShF-P9pmWH2ITcQxrsgRcx2kj0Tst1ZfmHW2RqfvPM_1cxKToO4XshjSTXQH0ybqEXZC0T45y13E-S6Bs9aeIh9cvUMXwlgqq8zk9mbl-NDe58V6-JcQswhAyRnXm785WJ5VJLvzlVoLCts023ZzszD88VqMhQiLxRtTBufEMDW6mq0R6da9FRkUdf_DnviTMqhm_M9le0agWa5yHGPD1Hr-ChRaxjiMimOALsdzJhk4GxQmHs9a2jeiv17mIRQccOyyv49Gv8itcfXEC-2FOFT4Mt8Tz51Ap-mRPGgnuswFNO2gZ40F3SkCoF5KbXqfa2DlRkXxf2k87WOmBsEwBJM3vZJYeS_YXmpiDOr39OtFRokMSEoHSLrkBnzgG8khgVKRyIhkow0IX-Z5o_30j64nUz-misv85zuIb-x2eiVisowDlU8IAV9Hp2h_5uZYdQI7P4VMTrX0_zIAr4cypT9cSMDAuj4lIuCraS6Fa2vvBIvaGMlmX7BghJwBnC08VtAW0Nc_jkURtjaOgAvFxSbOZeF0_HoR-mZyY6aF6lgoGyYbi4_vW8QOfDAM6JsRdQKnfQTJZ8NiiMQC96GIwpV-UpY-HyntgWSV0CWNuDYWyeofDw72TSjubqhvxsts5WVBuSl_L_NNu9KJWRNca-v64oX6KQqaKr8gqtAjdAcO4QrCS3AXamU41hxFD1cVfyirFScwfXVKiSgGLf9XZDtiI8UcQPDUEHknkQNAoQblY2pn2RYOeAVu0uLMM55TjZTH4k3A4Q_Ims0SmZG5xOBBuO7cpkRCfIWegpwzD-regXDWZv0mBol602zaEK-lFo--1uS7BFIOG4Nhdk3N0MMxnEDRzpbIlkS_HVe7p3ZZRA&uuid=78a9b79e-09a5-4ccc-9f04-649cb91e3310&authuser=0&nonce=3ffua8nm2843s&user=04492705916459634682&hash=4ahm1brblu3rqtfj51fvp8j3pcul0lq5" alt="company-logo" class="comp-logo">
+            </div>
+
+            <ul>
+                <li class="list active"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="clipboard-outline"></ion-icon></span>
+                    <span class="label">Dashboard</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
+                    <span class="label">Schedules</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="label">Classes</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                    <span class="label">Settings</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                    <span class="label">Help</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <span class="label">Logout</span>
+                </a></li>
+            </ul>
+        </div>
+        <!-- end nav -->
+        
+        <div class="content">
+            <div class="wrapper">
+            </div>
+        </div>
+
+        <!-- left sidebar -->
+        <div class="right-sidebar">
+            <div class="circle-container" style="margin-top: 10px">
+                <div class="circle user"></div>
+
+                <div class="space">
+                    <div class="circle extra"></div>
+                    <div class="circle extra"></div>
+                    <div class="circle extra"></div>
+                </div>
+            </div>
+        </div> 
+        <!-- left sidebar -->
+    </div> 
+    <!-- ending of container div -->
+

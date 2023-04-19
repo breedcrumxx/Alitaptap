@@ -1,0 +1,56 @@
+
+    <div class='container'>
+        <div class='before-left'></div>
+
+        <div class='left-side'>
+            <div class='statements'>
+                <h1 id='branding'> SAMPLE BRANDING</h1>
+                <h2 id='statement' style='margin-bottom: 98px;'>SAMPLE STATEMENT</h2>
+                <p id = 'lorem' style='font-size: 18px; width: 320px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+            </div>
+            <div class='logo'>
+                <img th:src="@{/images/company-logo.png}" alt="company-logo" class="comp-logo">
+            </div>
+        </div>
+        <!-- end left-side div -->
+        <img src='https://i0.wp.com/neust.edu.ph/wp-content/uploads/2020/06/cropped-neust_logo-1-1.png?w=512&ssl=1' alt='' class='neust-logo'>
+
+        <div class='right-side'>
+            <div class='form-container'>
+                <h2 style='text-align: center; margin-bottom: 25px;'>Create your account</h2>
+                <form id='reg-form'>
+                    <p id="error-placer" class="text-danger" style="margin-bottom: 10px; color: red;"></p>
+                    <label>Username</label>
+                    <input name='username' class='input' type='text' placeholder='Username'>
+
+                    <label>First name</label>
+                    <input name='fullname' class='input' type='text' placeholder='Full name'>
+
+                    <label>Password</label>
+                    <input name='password' class='input' type='text' placeholder='Password'>
+
+                    <label>Re-enter your password</label>
+                    <input name='repass' class='input' type='text' placeholder='Re-enter Password'> 
+
+                    <label for="role">Sex: </label> 
+                    <select name="sex" style="margin-top: 8px; margin-right: 48px;">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+
+                    <label for="role">Role: </label> 
+                    <select name="role" style="margin-bottom: 20px; margin-top: 8px;">
+                        <option id="admin" value="Admin">Admin</option>
+                        <option value="Instructor">Instructor</option>
+                    </select>
+
+                    <input style='margin-bottom: 25px;' type='button' value='Submit' onclick='openNav()'>
+                </form>
+
+                <p style='text-align: center;'>Already have an account? <br> <p onClick="login()" id="login" style="cursor: pointer; text-align: center">Login now!</p></p> 
+            </div>
+            <!-- end of form container -->
+        </div>
+        <!-- end right-side div -->
+
+    </div>
