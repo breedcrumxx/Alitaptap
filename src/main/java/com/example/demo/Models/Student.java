@@ -1,9 +1,7 @@
 package com.example.demo.Models;
 
-import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -12,9 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,14 +50,6 @@ public class Student {
 
     @JsonProperty("rfid")
     private String RFID;
-
-    @JsonProperty("status")
-    private String status;
-
-    @Transient
-    @OneToMany(mappedBy = "students")
-    @JsonManagedReference
-    private List<SubStudent> subStudent;
     
     public Student(){
 
@@ -80,7 +68,7 @@ public class Student {
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, BatchId);
+        return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, BatchId, Address, RFID);
     }
 
     @Override

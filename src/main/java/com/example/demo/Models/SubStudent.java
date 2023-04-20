@@ -27,15 +27,11 @@ public class SubStudent {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @JsonProperty("include")
-    @ManyToOne
-    @JoinColumn(name = "include_to")
-    private Schedule includeSchedule;
+    @JsonProperty("status")
+    private String Status;
 
-    @JsonProperty("exclude")
-    @ManyToOne
-    @JoinColumn(name = "exclude_to")
-    private Schedule excludeSchedule;
+    @JsonProperty("schedule")
+    private int schedule;
 
     public SubStudent(){
 

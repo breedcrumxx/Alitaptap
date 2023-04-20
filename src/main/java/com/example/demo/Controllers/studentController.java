@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.Models.Batch;
 import com.example.demo.Models.JsonResponse;
 import com.example.demo.Models.Student;
+import com.example.demo.Services.BatchService;
 import com.example.demo.Services.StudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +26,9 @@ public class studentController {
     
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    BatchService batchService;
 
     @PostMapping(path = "/create-student")
     private JsonResponse insertStudent(@RequestBody Student student){
@@ -54,21 +60,20 @@ public class studentController {
     @GetMapping(path = "/get-student/{id}")
     private JsonResponse getStudent(@PathVariable int id){
         JsonResponse response = new JsonResponse();
-        Optional<Student> student = studentService.getStudent(id);
+        Student student = studentService.getStudent(id);
         
-        if(!student.isPresent()){
+        if(student == null){
             response.status = "Error";
             response.message = "Server error, missing student record.";
 
             return response;
         }
 
-        Student finStudent = (Student) student.get();
         ObjectMapper map = new ObjectMapper();
 
         String json = "";
         try {
-            json = map.writeValueAsString(finStudent);
+            json = map.writeValueAsString(student);
         } catch (JsonProcessingException e) {
             response.status = "Error";
             response.message = "Error processing your request, internal server error. (Student controller)";
@@ -111,34 +116,43 @@ public class studentController {
         return response;
     }
 
-    // @GetMapping(path = "/get-mystudents/{id}")
-    // private JsonResponse getMyStudents(@PathVariable int id){
-    //     JsonResponse response = new JsonResponse();
-    //     List<Student> students = studentService.getMyStudents(id);
+    @PutMapping(path = "/{stdid}/to-batch/{batchid}")
+    private JsonResponse transferToBatch(@PathVariable("stdid") int stdid, @PathVariable("batchid") int batchid){
+        JsonResponse response = new JsonResponse();
+        // get batch
+        Batch batch = batchService.getBatch(batchid);
 
-    //     if(students.size() == 0){
-    //         response.status = "Error";
-    //         response.message = "You don't have any students.";
+        if(batch == null){
+            response.status = "Error";
+            response.message = "Seems like there is an internal server error, cannot find the class.";
 
-    //         return response;
-    //     }
+            return response;
+        }
 
-    //     ObjectMapper map = new ObjectMapper();
-    //     String json = "";
-    //     try {
-    //         json = map.writeValueAsString(students);
-    //     } catch (JsonProcessingException e) {
-    //         response.status = "Error";
-    //         response.message = "Error processing your request, internal server error. (Student controller)";
+        // getStudent 
+        Student student = studentService.getStudent(stdid);
 
-    //         return response;
-    //     }
+        if(student == null){
+            response.status = "Error";
+            response.message = "Server error, missing student record.";
 
-    //     response.status = "Success";
-    //     response.message = json;
+            return response;
+        }
 
-    //     return response;
-    // }
+        student.setBatchId(batch);
+        Student check = studentService.create(student);
 
+        if(check == null){
+            response.status = "Error";
+            response.message = "Cannot transfer the student, internal server error.";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = "Successfully transfered the student.";
+
+        return response;
+    }
 
 }

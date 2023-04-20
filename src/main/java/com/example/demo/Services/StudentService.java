@@ -37,8 +37,14 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Optional<Student> getStudent(int id){
-        return studentRepository.findById(id);
+    public Student getStudent(int id){
+        Optional<Student> student = studentRepository.findById(id);
+
+        if(!student.isPresent()){
+            return null;
+        }
+
+        return student.get();
     }
 
     public List<Student> getStudents() {
@@ -47,6 +53,14 @@ public class StudentService {
 
     public List<Student> getFromBatchId(int id) {
         return studentRepository.findByBatchId(id);
+    }
+
+    public List<Student> getStudents(int batchid,int schedid) {
+        return studentRepository.getStudentsFromThisSchedule(batchid ,schedid);
+    }
+
+    public List<Student> getExcludedStudents(int schedid) {
+        return studentRepository.getExcludedStudents(schedid);
     }
 
 }

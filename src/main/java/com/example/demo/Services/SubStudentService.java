@@ -20,5 +20,15 @@ public class SubStudentService {
         subStudentRepository.delete(id, schedid);
     }
 
+    public boolean excluded(int id, int schedid){
+        SubStudent record = subStudentRepository.exist(id, schedid);
+
+        if(record == null){
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

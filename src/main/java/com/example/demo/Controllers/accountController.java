@@ -1,6 +1,8 @@
 package com.example.demo.Controllers;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +23,15 @@ import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
 import com.example.demo.Repositories.ScheduleRepository;
 import com.example.demo.Services.StudentService;
+import com.example.demo.Services.SubStudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(path = "/api/account")
 public class accountController {
+
+    ObjectMapper map = new ObjectMapper();
 
     @Autowired
     AccountRepository accountRepository;
@@ -36,6 +41,9 @@ public class accountController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    SubStudentService subStudentService;
 
     //create account method
     @PostMapping(path = "/create-account", consumes = "application/json", produces = "application/json")
@@ -124,8 +132,8 @@ public class accountController {
 
         Account curr_acc = (Account) optAcc.get();
         
-        List<Schedule> tempSched = curr_acc.getSchedules();
-        List<Schedule> finSchedules = new ArrayList<>();
+        List<Schedule> tempSched = curr_acc.getSchedules(); // all of the schedules without students
+        List<Schedule> finSchedules = new ArrayList<>(); // empty schedule container
 
         if(tempSched.size() == 0){
             response.status = "Success";
@@ -135,21 +143,29 @@ public class accountController {
         }
 
         for(int i = 0; i < tempSched.size(); i++){
-            Schedule temp = tempSched.get(i);
-            Batch currBatch = temp.getBatch();
-            List<Student> students = studentService.getFromBatchId(currBatch.getId());
+            Schedule temp = tempSched.get(i); // current sched working on
 
-            if(temp.getStatus() == 1){
+            if(temp.getStatus() == 1){ // check if it's an active schedule
+                List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
+                List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
+
+                if(excludedStudents.size() == 0){
+                    temp.setStudents(students);
+                    finSchedules.add(temp);
+
+                    continue;
+                }
+
+                students.removeAll(excludedStudents);
+
                 temp.setStudents(students);
                 finSchedules.add(temp);
             }
+
         }
 
-        curr_acc.setSchedules(finSchedules);
-
-        ObjectMapper map = new ObjectMapper();
         try {
-            String json = map.writeValueAsString(curr_acc);
+            String json = map.writeValueAsString(finSchedules);
 
             response.status = "Success";
             response.message = json;
