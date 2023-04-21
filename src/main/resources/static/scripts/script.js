@@ -19,6 +19,8 @@
         }
     }
 
+    //get current state
+
     var currentUser;
 
     async function sendData(url, data){
@@ -32,7 +34,7 @@
             }
         });
 
-        return await response.json();
+        return await response;
     }
 
     async function registerData(data){
@@ -189,7 +191,7 @@
             password
         };
 
-        let { status, message } = await sendData("/login-account", formData);
+        let { status, message } = await sendData("/api/account/login-account", formData);
         if (status == "no account matched") {
             error.innerHTML = message;
             document.querySelector('#username').value = "";
@@ -205,11 +207,11 @@
         }
         
         console.log(status);
-        // login now
 
         await cover_curtain();
         
         let {id, name, role, sex} = JSON.parse(message);
+        console.log("id" + id);
         currentUser = new User(id, name, role, sex);
         
         //inject dashboard template
@@ -222,6 +224,7 @@
         
         nav_init();
         compose_content(0);
+        document.cookie = "state=dashboard";
         draw_curtain();
     }
 
@@ -251,6 +254,7 @@
                 document.querySelector('.content').innerHTML = template;
 
                 dashboard_init();
+                document.cookie = "state=dashboard";
         }
 
         if(id == 1){
@@ -261,9 +265,16 @@
 
     async function compose_card(objects, limit){
         var constructed = ""; 
-
+        // console.log(objects.length());
         for(let i = 0; i < objects.length && i < limit; i++){
-            let component = "<div class='card'><p>" + objects[i]["SubjectCode"] + "</p><p>" + objects[i]["WeekSlot"] + "</p><p>" + objects[i]["TimeSlot"] + "</p></div>";
+            let component = 
+            `<div class='card'>
+                <p>` + objects[i]["subjectcode"] + `</p>
+                <p>` + objects[i]["timeslot"] + `</p>
+                <p>` + objects[i]["weekslot"] + `</p>
+            </div> \n`;
+
+            console.log(component);
 
             constructed += component;
         }
@@ -274,11 +285,65 @@
     }
 
     async function dashboard_init(){
-        document.querySelector('#welcome').innerHTML = "Welcome! " + (currentUser.sex == "Male" ? "Sir" : "Ma'am") + " " + currentUser.name;
-        
+        const weatherNow = await $.ajax({
+            type: "GET",
+            url: "http://api.weatherapi.com/v1/current.json?key=090a4b6cd86a439bbe0145533232004&q=philippines&aqi=no",
+            success: function(data){
+                return data;
+            }
+        });
+
+        console.log(weatherNow);
+        console.log(weatherNow["current"]["condition"]);
+
+        document.querySelector('.greeting').innerHTML = `
+        <div>
+            <p style="
+            font-size: 25px;
+            font-weight: 700;
+            ">Welcome, ` + (currentUser.sex == "MALE" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+            <div style="margin-top: 5px;">
+                <p style="
+                font-size:18px;
+                font-weight: 500;">A great day to learn and teach.</p>
+                <p style="
+                font-size:18px;
+                font-weight: 500;
+                position:relative;
+                top: -10px;">You have ` + 3 + ` class scheduled for today.</p>
+            </div>
+        </div>
+        <div style="padding-left: 200px; margin-top: 10px;">            
+            <p style="
+            font-size: 18px;
+            font-weight: 600;"> ` + weatherNow['location']["localtime"] + ` </p>
+            <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
+        </div>
+        `;
+
         //get schedules
-        let {status, message} = await getData("GET", "/get-schedule/" + currentUser.id);
+        let {status, message} = await getData("GET", "/api/schedule/" 
+        + currentUser.id + "/schedules");
+
+            if(status == "Error"){
+                //throw error
+            }
+
+            if(status == "Empty"){
+                // document.querySelector('.cards').innerHTML = `
+                // <div>
+                //     <p>Welcome, ` + currentUser.name + `</p>
+                //     <p>A great day to learn and teach.</p>
+                //     <p>You have ` + 3 + ` class scheduled for today.</p>
+                // </div>
+                // `;
+
+                return;
+            }
+
             const objects = await JSON.parse(message);
+            console.log(objects);
+            console.log();
 
         const cards = await compose_card(objects, 4);
 

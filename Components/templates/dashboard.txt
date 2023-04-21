@@ -1,10 +1,16 @@
 <div class="wrapper">
     <div>
         <p class="location">Dashboard</h1>
-        <p id="welcome"></p>
     </div>
 
-    <div id="containerGrey"></div>
+    <div class="greeting" style="
+    display: flex;
+    width: 760px;
+    height: 150px;
+    background-color: #D7E7F3;
+    border-radius: 10px;
+    padding: 30px;">
+    </div>
 
     <div class="schedules">
         <div style="display: flex; gap: 470px;">

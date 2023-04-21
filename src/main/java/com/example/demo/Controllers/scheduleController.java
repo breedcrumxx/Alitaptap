@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Models.Account;
-import com.example.demo.Models.Batch;
 import com.example.demo.Models.JsonResponse;
 import com.example.demo.Models.Schedule;
-import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
 import com.example.demo.Repositories.ScheduleRepository;
 import com.example.demo.Services.StudentService;
@@ -82,37 +80,29 @@ public class scheduleController {
         List<Schedule> finSchedules = new ArrayList<>();
 
         if(tempSched.size() == 0){
-            response.status = "Success";
+            response.status = "Empty";
             response.message = "No schedules yet, create one now!";
 
             return response;
         }
 
-        for(int i = 0; i < tempSched.size(); i++){
-            Schedule temp = tempSched.get(i);
-            Batch currBatch = temp.getBatch();
-            List<Student> students = studentService.getFromBatchId(currBatch.getId());
+        // for(int i = 0; i < tempSched.size(); i++){
+        //     Schedule temp = tempSched.get(i);
+        //     Batch currBatch = temp.getBatch();
+        //     List<Student> students = studentService.getFromBatchId(currBatch.getId());
 
-            if(temp.getStatus() == 1){
-                temp.setStudents(students);
+        //     if(temp.getStatus() == 1){
+        //         temp.setStudents(students);
 
-                // List<Student> finStudents = new ArrayList<>();
+        //         finSchedules.add(temp);
+        //     }
+        // }
 
-                // for(int x = 0; x < students.size(); x++){
-        
-                // }
-
-                // include 
-
-                finSchedules.add(temp);
-            }
-        }
-
-        curr_acc.setSchedules(finSchedules);
+        // curr_acc.setSchedules(finSchedules);
 
         ObjectMapper map = new ObjectMapper();
         try {
-            String json = map.writeValueAsString(curr_acc);
+            String json = map.writeValueAsString(tempSched);
 
             response.status = "Success";
             response.message = json;
