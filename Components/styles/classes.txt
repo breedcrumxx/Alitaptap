@@ -1,0 +1,114 @@
+<style>
+    #welcome {
+        font-size: 24px;
+        font-weight: 500;
+        color: #646464;
+    }
+
+    #containerGrey{
+        /* position: relative; */
+        width: 710px;
+        height: 93px;
+        margin-top: 13px;
+        left: 276px;
+        top: 79px;
+        background: #D9D9D9;
+        border-radius: 10px;
+    }
+
+    .classes {
+        margin-top: 13px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .cards {
+        margin-top: 6px;
+        width: 790px;
+        height: 500px;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: auto auto auto ;
+        padding: 10px;
+        
+        overflow-y: scroll;
+        mask-image: linear-gradient(to top, transparent, black),
+            linear-gradient(to left, transparent 17px, black 17px);
+        mask-size: 100% 20000px;
+        mask-position: left bottom;
+        -webkit-mask-image: linear-gradient(to top, transparent, black),
+            linear-gradient(to left, transparent 17px, black 17px);
+        -webkit-mask-size: 100% 20000px;
+        -webkit-mask-position: left bottom;
+    }
+
+    .card {
+        min-width: 200px;
+        min-height: 190px;
+        background: #d9d9d9;
+        border-radius: 15px;
+                    
+        z-index: 2;
+        flex: 1 1 calc(50% - 10px);
+        height: calc(100% - 10px);
+        transition: all 0.5s;
+    }
+
+    .card.grow {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: expand 0.6s;
+        
+    }
+
+    @keyframes expand {
+        from {
+            width: 50%;
+            height: 50%;
+            top: 50%;
+            left: 50%;
+            margin: 5px;
+            transform: translate(-50%, -50%);
+        }
+        to {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            top: 0;
+            left: 0;
+            transform: none;
+        }
+    }
+    
+    #actdiv{
+        width: 387px;
+        height: 230px;
+        margin-top: 6px;
+        background-color: #17156D;
+        border-radius: 10px;
+    }
+
+    .class-activity {
+        width: 304px;
+        height: 230px;
+        margin-top: 6px;
+        background-color: #17156D;
+        border-radius: 10px;
+    }
+    .plus-icon{
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        
+    }
+
+</style>

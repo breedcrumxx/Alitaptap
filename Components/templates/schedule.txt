@@ -1,0 +1,92 @@
+<div class="wrapper"> 
+    <div>
+        <p style="
+        font-size: 22px;
+        font-weight: 550;">Schedules</h1>
+        <p id="welcome">
+            Welcome, Kyan!
+        </p>
+    </div>
+
+    <div class="schedules">
+        <div style="display: flex; gap: 470px;">
+            <p>Create schedules</p>
+        </div>
+        <div class="cards">
+            <div class="add-card" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="" >
+                <ion-icon class="plus-icon" name="add-outline" ></ion-icon>
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+        </div>
+    </div>
+    
+
+     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New schedule</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <form>
+                <div class="form-group">
+
+                    <div class="btn-group">
+                        <select class="btn-secondary btn-lg dropdown-toggle value" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Class
+                            <div class="dropdown-menu">  
+                                <option disabled selected >Select Class</option>
+                                <option value="BSIT-1A">BSIT-1A</option>
+                                <option value="BSIT-1B">BSIT-1B</option>
+                                <option value="BSIT-2A">BSIT-2A</option>
+                                <option value="BSIT-3A">BSIT-3A</option>
+                                <option value="BSIT-4A">BSIT-4A</option>
+                            </div>
+                        </Select>
+                    </div>
+                    <br>  <br>  
+                        <div class="btn-group">
+                            <select class="btn-secondary btn-lg dropdown-toggle value" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Class
+                                <div class="dropdown-menu">  
+                                    <option disabled selected >Week Slot</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                </div>
+                            </Select>
+                        </div>
+
+                    <br>                  
+                    <label for="recipient-name" class="col-form-label">Instructor:</label>
+                    <input type="text" class="form-control instructor" id="recipient-name">
+
+                    <label for="recipient-name" class="col-form-label">Subject:</label>
+                    <input type="text" class="form-control subject" id="recipient-name">
+
+                    <label for="recipient-name" class="col-form-label">Time:</label>
+                    <input type="time" id="appt" name="appt" class="time">
+              
+                </div>
+                
+            </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn-submit">Save</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
