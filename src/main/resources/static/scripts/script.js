@@ -192,14 +192,14 @@
         };
 
         let { status, message } = await sendData("/api/account/login-account", formData);
-        if (status == "no account matched") {
+        if (status == "No match") {
             error.innerHTML = message;
             document.querySelector('#username').value = "";
             document.querySelector('#password').value = "";
             document.querySelector('#username').focus();
             return;
         }
-        if(status == "wrong password"){
+        if(status == "Error"){
             error.innerHTML = message;
             document.querySelector('#password').value = "";
             document.querySelector('#password').focus();
@@ -318,8 +318,7 @@
             font-size: 18px;
             font-weight: 600;"> ` + weatherNow['location']["localtime"] + ` </p>
             <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
-        </div>
-        `;
+        </div>`;
 
         //get schedules
         let {status, message} = await getData("GET", "/api/schedule/" 
@@ -330,23 +329,27 @@
             }
 
             if(status == "Empty"){
-                // document.querySelector('.cards').innerHTML = `
-                // <div>
-                //     <p>Welcome, ` + currentUser.name + `</p>
-                //     <p>A great day to learn and teach.</p>
-                //     <p>You have ` + 3 + ` class scheduled for today.</p>
-                // </div>
-                // `;
-
+                //throw empty
                 return;
             }
 
-            const objects = await JSON.parse(message);
-            console.log(objects);
-            console.log();
-
-        const cards = await compose_card(objects, 4);
+        const schedules = compose_mini_schedule(message);
 
         document.querySelector('.cards').innerHTML = cards;
+    }
+
+    function compose_mini_schedule(schedules, limit){
+        let container = "";
+        schedules.forEach((schedule)=>{
+            const content = `            
+            <tr>
+                <td>` + schedule["subjectcode"] + `<p class="p">` + schedule["timeslot"] + `</p></td>
+                <td class="spacing">` + schedule["batch"]["course"] + " " + schedule["batch"]["section"] + `</td>
+            </tr>`;
+
+            container += content;
+        });
+
+        return container;
     }
 
