@@ -38,7 +38,7 @@
     }
 
     async function registerData(data){
-        let { status, message } = await sendData("/create-account", data);
+        let { status, message } = await sendData("/api/account/create-account", data);
         if(status == 'success'){
             //delete all data
         }
@@ -209,7 +209,7 @@
         console.log(status);
 
         await cover_curtain();
-        
+        console.log(message);
         let {id, name, role, sex} = JSON.parse(message);
         console.log("id" + id);
         currentUser = new User(id, name, role, sex);
@@ -259,9 +259,106 @@
 
         if(id == 1){
             document.querySelector('.wrapper').remove();
-            document.querySelector('.content').innerHTML = "<div class='wrapper'></div>";
+
+            let style = await getData("POST", "/get-style/schedule");
+            document.querySelector('#style').insertAdjacentHTML("afterend", style);
+
+            let template = await getData("POST", "/get-template/schedule");
+            document.querySelector('.content').innerHTML = template;
+
+
+                schedule_init();
+            
+        }
+
+        if(id == 2){
+            document.querySelector('.wrapper').remove();
+
+            let style = await getData("POST", "/get-style/classes");
+            document.querySelector('#style').insertAdjacentHTML("afterend", style);
+
+            let template = await getData("POST", "/get-template/classes");
+            document.querySelector('.content').innerHTML = template;
+
+            classes_init();
         }
     }
+
+    async function classes_init(){
+        
+        const container = document.querySelector(".cards");
+            const boxs = document.querySelectorAll(".card");
+
+            boxs.forEach(box => {
+                box.addEventListener("click", function() {
+                    boxs.forEach(b => {
+                    if(b !== box) {
+                        b.style.display = "none";
+                    }
+                }); 
+                box.classList.add('grow');
+                box.style.backgroundColor="white";
+            });
+        });
+
+    }
+
+    async function schedule_init(){
+        
+        const logo = document.querySelector(".cards");
+            const boxs = document.querySelectorAll(".card");
+
+            boxs.forEach(box => {
+                box.addEventListener("click", function() {
+                    boxs.forEach(b => {
+                    if(b !== box) {
+                        b.style.display = "none";
+                    }
+                }); 
+                box.classList.add('grow');
+                box.style.backgroundColor="white";
+            });
+        });
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipient = button.data('whatever')
+            var modal = $(this)
+            modal.find('.modal-title').text('New schedule ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+
+        const btn_submit = document.querySelector(".btn-submit");
+        btn_submit.addEventListener('click', e =>{
+        const modal = document.querySelector(".modal");
+        const modalOpen = document.querySelector(".modal-open");
+        const modalback = document.querySelector(".modal-backdrop");
+
+        const instructor = document.querySelector(".instructor").value;
+        const subject = document.querySelector(".subject").value;
+        const time = document.querySelector(".time").value;
+        const val = document.querySelector(".value").value;
+
+
+        console.log("-------------");
+
+        console.log(val);
+        console.log(instructor);
+        console.log(subject);
+        console.log(time);
+
+        modal.style.display = "none";
+        modal.classList.remove("show");
+        modalback.remove();
+        modalOpen.classList.remove("modal-open");
+
+        const modalElement = document.querySelector('[aria-modal="true"]');
+
+        modalElement.removeAttribute('aria-modal');
+        modalElement.setAttribute('aria-hidden', 'true');
+    })
+
+}
 
     async function compose_card(objects, limit){
         var constructed = ""; 
@@ -301,7 +398,7 @@
             <p style="
             font-size: 25px;
             font-weight: 700;
-            ">Welcome, ` + (currentUser.sex == "MALE" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+            ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
             <div style="margin-top: 5px;">
                 <p style="
                 font-size:18px;
@@ -336,6 +433,22 @@
         const schedules = compose_mini_schedule(message);
 
         document.querySelector('.cards').innerHTML = cards;
+
+        
+        const container = document.querySelector(".cards");
+            const boxs = document.querySelectorAll(".card");
+
+            boxs.forEach(box => {
+                box.addEventListener("click", function() {
+                    boxs.forEach(b => {
+                    if(b !== box) {
+                        b.style.display = "none";
+                    }
+                }); 
+                box.classList.add('grow');
+                box.style.backgroundColor="white";
+            });
+        });
     }
 
     function compose_mini_schedule(schedules, limit){

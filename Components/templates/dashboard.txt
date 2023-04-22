@@ -1,6 +1,10 @@
 <div class="wrapper">
     <div>
-        <p class="location">Dashboard</h1>
+        <p style="
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            ">Dashboard</h1>
     </div>
 
     <div class="greeting" style="
@@ -9,34 +13,75 @@
     height: 150px;
     background-color: #D7E7F3;
     border-radius: 10px;
-    padding: 30px;">
-    </div>
-
-    <div class="schedules">
-        <div style="display: flex; gap: 470px;">
-            <p>Your schedules</p><a href="#" class = "text">View all schedules-></a>
+    padding: 30px;
+    box-shadow: 2px 3px #c0c6ca;">
+        <div>
+            <p style="
+            font-size: 25px;
+            font-weight: 700;
+            ">Welcome, Sir Dan Rosete!</p>
+            <div style="margin-top: 5px;">
+                <p style="
+                font-size:18px;
+                font-weight: 500;">A great day to learn and teach.</p>
+                <p style="
+                font-size:18px;
+                font-weight: 500;
+                position:relative;
+                top: -10px;">You have 3 class scheduled for today.</p>
+            </div>
         </div>
-        <div class="cards">
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
+        <div style="padding-left: 200px; margin-top: 10px;">            
+            <p style="
+            font-size: 18px;
+            font-weight: 600;">Thu, 20 Apr 2023 14:57</p>
+            <p>Partly cloudy<span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
         </div>
     </div>
-
+    
     <div class="activities" style="display: flex; margin-top: 13px; gap: 20px;">  
         <div>
-            <p>Your activity</p>
-            <div id="actdiv"></div>
+            <div id="actdiv">
+                <p class="headerTxt">Your activity</p>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                            
+                            <td class="spacing">Teaching hours</td>
+                        </tr>
+                        <tr>
+                            <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                            
+                            <td class="spacing">Teaching hours</td>
+                        </tr>
+                        <tr>
+                            <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                            
+                            <td class="spacing">Teaching hours</td>
+                        </tr>
+                        <tr>
+                            <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                            
+                            <td class="spacing">Teaching hours</td>
+                        </tr>
+                        <tr>
+                            <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                            
+                            <td class="spacing">Teaching hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div>
-            <p>Your class activity</p>
-            <div class="class-activity"></div>
+            <div class="class-activity">
+                <p class="headerTxt">Schedule for today</p>
+            </div>
         </div>
     </div>
-</div>
 
+</div>
