@@ -2,14 +2,18 @@ package com.example.demo.Models;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,10 +50,14 @@ public class Student {
     @JsonProperty("batchid")
     @ManyToOne
     @JoinColumn(name = "batchId")
+    @JsonBackReference
     private Batch BatchId;
-
+    
     @JsonProperty("rfid")
-    private String RFID;
+    @OneToOne
+    @JoinColumn(name = "rfid_id", referencedColumnName = "id")
+    @JsonBackReference
+    private RFID StudentRFID;
     
     public Student(){
 
@@ -68,7 +76,7 @@ public class Student {
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, BatchId, Address, RFID);
+        return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, BatchId, Address, StudentRFID);
     }
 
     @Override

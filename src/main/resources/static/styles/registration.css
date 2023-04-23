@@ -8,7 +8,7 @@ body {
     overflow: hidden;
 }
 
-.containers {
+.container {
     width: 1150px;
     height: 613px;
     display: flex;

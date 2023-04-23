@@ -1,6 +1,9 @@
 package com.example.demo.Controllers;
 
+import java.text.DateFormatSymbols;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Models.Account;
 import com.example.demo.Models.JsonResponse;
 import com.example.demo.Models.Schedule;
+import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
 import com.example.demo.Repositories.ScheduleRepository;
+import com.example.demo.Services.ScheduleService;
 import com.example.demo.Services.StudentService;
 import com.example.demo.Services.SubStudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,12 +32,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping(path ="/api/schedule")
 public class scheduleController {
-    
-    @Autowired
-    ScheduleRepository scheduleRepository;
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    ScheduleService scheduleService;
 
     @Autowired
     StudentService studentService;
@@ -47,7 +52,7 @@ public class scheduleController {
         Account Instructor = accountRepository.findAccountById(sched.getInstructor());
         sched.setInstructor(Instructor);
 
-        Schedule create = scheduleRepository.save(sched);
+        Schedule create = scheduleService.create(sched);
 
         if(create == null){
             response.status = "Error";
@@ -73,11 +78,9 @@ public class scheduleController {
 
             return response;
         }
-
-        Account curr_acc = (Account) optAcc.get();
         
-        List<Schedule> tempSched = curr_acc.getSchedules();
-        List<Schedule> finSchedules = new ArrayList<>();
+        List<Schedule> tempSched = scheduleService.getSchedules(id);
+        List<Schedule> finSchedules = new ArrayList<>(); // empty schedule container
 
         if(tempSched.size() == 0){
             response.status = "Empty";
@@ -86,19 +89,27 @@ public class scheduleController {
             return response;
         }
 
-        // for(int i = 0; i < tempSched.size(); i++){
-        //     Schedule temp = tempSched.get(i);
-        //     Batch currBatch = temp.getBatch();
-        //     List<Student> students = studentService.getFromBatchId(currBatch.getId());
+        for(int i = 0; i < tempSched.size(); i++){
+            Schedule temp = tempSched.get(i); // current sched working on
 
-        //     if(temp.getStatus() == 1){
-        //         temp.setStudents(students);
+            if(temp.getStatus() == 1){ // check if it's an active schedule
+                List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
+                List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
 
-        //         finSchedules.add(temp);
-        //     }
-        // }
+                if(excludedStudents.size() == 0){
+                    temp.setStudents(students);
+                    finSchedules.add(temp);
 
-        // curr_acc.setSchedules(finSchedules);
+                    continue;
+                }
+
+                students.removeAll(excludedStudents);
+
+                temp.setStudents(students);
+                finSchedules.add(temp);
+            }
+
+        }
 
         ObjectMapper map = new ObjectMapper();
         try {
@@ -118,7 +129,7 @@ public class scheduleController {
     @PutMapping(path = "/update-schedule")
     private JsonResponse updateSchedule(@RequestBody Schedule sched){
         JsonResponse response = new JsonResponse();
-        Schedule updatedSched = scheduleRepository.save(sched);
+        Schedule updatedSched = scheduleService.create(sched);
 
         if(updatedSched == null){
             response.status = "Error";
@@ -136,18 +147,17 @@ public class scheduleController {
     @PutMapping(path = "/set-active-schedule/{id}")
     private JsonResponse activateSchedule(@PathVariable int id){
         JsonResponse response = new JsonResponse();
-        Optional<Schedule> tempSched = scheduleRepository.findById(id);
+        Schedule tempSched = scheduleService.getSchedule(id);
 
-        if(!tempSched.isPresent()){
+        if(tempSched == null){
             response.status = "Error";
             response.message = "Cannot activate your schedule.";
 
             return response;
         }
 
-        Schedule sched = (Schedule) tempSched.get();
-        sched.setStatus(1);
-        Schedule removed = scheduleRepository.save(sched);
+        tempSched.setStatus(1);
+        Schedule removed = scheduleService.create(tempSched);
 
         if(removed == null){
             response.status = "Error";
@@ -162,21 +172,57 @@ public class scheduleController {
         return response;
     }
 
+    @GetMapping(path = "/{id}/current-schedule")
+    private JsonResponse currentSchedule(@PathVariable int id){
+        JsonResponse response = new JsonResponse();
+
+        String dayNames[] = new DateFormatSymbols().getWeekdays();  
+        Calendar date = Calendar.getInstance();  
+        String today =  dayNames[date.get(Calendar.DAY_OF_WEEK)];
+        System.out.println("Today is "+ dayNames[date.get(Calendar.DAY_OF_WEEK)]);  
+
+        List<Schedule> schedules = scheduleService.getCurrentSchedule(id, today);
+
+        if(schedules.size() == 0){
+            response.status = "Empty";
+            response.message = "You have no class for today.";
+
+            return response;
+        }
+
+        ObjectMapper map = new ObjectMapper();
+
+        String json;
+        try {
+            json = map.writeValueAsString(schedules);
+        } catch (JsonProcessingException e) {
+            System.out.println(e.toString());
+            response.status = "Error";
+            response.message = "Error processing your request.";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = json;
+
+        return response;
+    }
+
     @PutMapping(path = "/remove-schedule/{id}")
     private JsonResponse removeSchedule(@PathVariable int id){
         JsonResponse response = new JsonResponse();
-        Optional<Schedule> tempSched = scheduleRepository.findById(id);
+        Schedule tempSched = scheduleService.getSchedule(id);
 
-        if(!tempSched.isPresent()){
+        if(tempSched == null){
             response.status = "Error";
             response.message = "Cannot remove your schedule.";
 
             return response;
         }
 
-        Schedule sched = (Schedule) tempSched.get();
-        sched.setStatus(0);
-        Schedule removed = scheduleRepository.save(sched);
+        tempSched.setStatus(0);
+        Schedule removed = scheduleService.create(tempSched);
 
         if(removed == null){
             response.status = "Error";

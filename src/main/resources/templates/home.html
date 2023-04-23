@@ -9,7 +9,6 @@
   src="https://code.jquery.com/jquery-3.6.4.js"
   integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
   crossorigin="anonymous"></script>
-  
 </head>
 <body>
     <h1>Welcome to our system</h1>
@@ -18,7 +17,7 @@
     <a th:href="@{http://localhost:8080/test}">Test Page</a>
     <button onClick="fireTest()">test</button>
 
-    <div id="containers">
+    <div id="container">
         <p>heelo</p>
     </div>
 
@@ -54,7 +53,7 @@
             }
         });
 
-        $('#containers').append(content);
+        $('#container').append(content);
 
         $.ajax({
             method: "POST",

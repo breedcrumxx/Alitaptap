@@ -1,5 +1,5 @@
 
-    <div class='containers'>
+    <div class='container'>
         <div class='before-left'></div>
 
         <div class='left-side'>

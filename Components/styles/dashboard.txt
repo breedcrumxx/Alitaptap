@@ -37,6 +37,11 @@
             border-spacing: 1em;
             margin-left: 10px;
         }
+
+        .table-item {
+            width: calc(50% - 200px);
+        }
+        
         tr td{
             font-size: 12px;
         }

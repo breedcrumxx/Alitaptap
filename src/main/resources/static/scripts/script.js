@@ -221,11 +221,11 @@
 
         let template = await getData("GET", "/get-template/mainscreen");
             document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
-            nav_init();
-            compose_content(0);
-            document.cookie = "state=dashboard";
-            draw_curtain();
-
+        
+        nav_init();
+        compose_content(0);
+        document.cookie = "state=dashboard";
+        draw_curtain();
     }
 
     async function nav_init(){
@@ -282,36 +282,6 @@
 
             classes_init();
         }
-
-        if(id == 3){
-            document.querySelector('.wrapper').remove();
-
-            let style = await getData("POST", "/get-style/settings");
-            document.querySelector('#style').insertAdjacentHTML("afterend", style);
-
-            let template = await getData("POST", "/get-template/settings");
-            document.querySelector('.content').innerHTML = template;
-
-            accountInfo();
-        }
-    }
-
-    async function accountInfo(){
-        let {status, message} = await getData("GET", "/api/account/" 
-        + currentUser.id + "/settings");
-
-            if(status == "Error"){
-                //throw error
-            }
-
-            if(status == "Empty"){
-                //throw empty
-                return;
-            }
-
-        const fullname = document.querySelector(".fullName").value = currentUser.fullname;
-        const username = document.querySelector(".userName").value = currentUser.username;
-        const description = document.querySelector(".description").value = currentUser.description;
     }
 
     async function classes_init(){
@@ -341,14 +311,14 @@
             boxs.forEach(box => {
                 box.addEventListener("click", function() {
                     boxs.forEach(b => {
-                    if(b !== box) {
-                        b.style.display = "none";
-                    }
-                }); 
-                box.classList.add('grow');
-                box.style.backgroundColor="white";
+                        if(b !== box) {
+                            b.style.display = "none";
+                        }
+                    }); 
+                    box.classList.add('grow');
+                    box.style.backgroundColor="white";
+                });
             });
-        });
 
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
@@ -356,39 +326,40 @@
             var modal = $(this)
             modal.find('.modal-title').text('New schedule ' + recipient)
             modal.find('.modal-body input').val(recipient)
-        });
+        })
 
         const btn_submit = document.querySelector(".btn-submit");
+
         btn_submit.addEventListener('click', e =>{
-        const modal = document.querySelector(".modal");
-        const modalOpen = document.querySelector(".modal-open");
-        const modalback = document.querySelector(".modal-backdrop");
+            const modal = document.querySelector(".modal");
+            const modalOpen = document.querySelector(".modal-open");
+            const modalback = document.querySelector(".modal-backdrop");
 
-        const instructor = document.querySelector(".instructor").value;
-        const subject = document.querySelector(".subject").value;
-        const time = document.querySelector(".time").value;
-        const val = document.querySelector(".value").value;
+            const instructor = document.querySelector(".instructor").value;
+            const subject = document.querySelector(".subject").value;
+            const time = document.querySelector(".time").value;
+            const val = document.querySelector(".value").value;
 
 
-        console.log("-------------");
+            console.log("-------------");
 
-        console.log(val);
-        console.log(instructor);
-        console.log(subject);
-        console.log(time);
+            console.log(val);
+            console.log(instructor);
+            console.log(subject);
+            console.log(time);
 
-        modal.style.display = "none";
-        modal.classList.remove("show");
-        modalback.remove();
-        modalOpen.classList.remove("modal-open");
+            modal.style.display = "none";
+            modal.classList.remove("show");
+            modalback.remove();
+            modalOpen.classList.remove("modal-open");
 
-        const modalElement = document.querySelector('[aria-modal="true"]');
+            const modalElement = document.querySelector('[aria-modal="true"]');
 
-        modalElement.removeAttribute('aria-modal');
-        modalElement.setAttribute('aria-hidden', 'true');
-    });
+            modalElement.removeAttribute('aria-modal');
+            modalElement.setAttribute('aria-hidden', 'true');
+        })
 
-}
+    }
 
     async function compose_card(objects, limit){
         var constructed = ""; 
@@ -420,36 +391,11 @@
             }
         });
 
-        console.log(weatherNow);
-        console.log(weatherNow["current"]["condition"]);
 
-        document.querySelector('.greeting').innerHTML = `
-        <div>
-            <p style="
-            font-size: 25px;
-            font-weight: 700;
-            ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
-            <div style="margin-top: 5px;">
-                <p style="
-                font-size:18px;
-                font-weight: 500;">A great day to learn and teach.</p>
-                <p style="
-                font-size:18px;
-                font-weight: 500;
-                position:relative;
-                top: -10px;">You have ` + 3 + ` class scheduled for today.</p>
-            </div>
-        </div>
-        <div style="padding-left: 200px; margin-top: 10px;">            
-            <p style="
-            font-size: 18px;
-            font-weight: 600;"> ` + weatherNow['location']["localtime"] + ` </p>
-            <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
-        </div>`;
 
         //get schedules
         let {status, message} = await getData("GET", "/api/schedule/" 
-        + currentUser.id + "/schedules");
+        + currentUser.id + "/current-schedule");
 
             if(status == "Error"){
                 //throw error
@@ -460,39 +406,62 @@
                 return;
             }
 
-        const schedules = compose_mini_schedule(message);
+        const toRender = JSON.parse(message);
+        const numbers = Object.keys(toRender).length;
 
-        document.querySelector('.cards').innerHTML = cards;
+        document.querySelector('.greeting').innerHTML = `
+        <div>
+            <p style="
+            font-size: 25px;
+            font-weight: 700;
+            min-width: 500px;
+            max-width: 500px;
+            ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+            <div style="
+            margin-top: 5px;
+            ">
+                <p style="
+                font-size:18px;
+                font-weight: 500;">A great day to learn and teach.</p>
+                <p style="
+                font-size:18px;
+                font-weight: 500;
+                position:relative;
+                top: -10px;">You have ` + numbers + ` class scheduled for today.</p>
+            </div>
+        </div>
+        <div style="
+        margin-top: 10px; 
+        margin-left: 40px; 
+        ">            
+            <p style="
+            font-size: 18px;
+            font-weight: 600; 
+            "> ` + weatherNow['location']["localtime"] + ` </p>
+            <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
+        </div>`;
 
-        
-        const container = document.querySelector(".cards");
-            const boxs = document.querySelectorAll(".card");
+        const schedules = compose_mini_schedule(toRender);
 
-            boxs.forEach(box => {
-                box.addEventListener("click", function() {
-                    boxs.forEach(b => {
-                    if(b !== box) {
-                        b.style.display = "none";
-                    }
-                }); 
-                box.classList.add('grow');
-                box.style.backgroundColor="white";
-            });
-        });
+        document.querySelector('#schedule-today').innerHTML = schedules;
     }
 
     function compose_mini_schedule(schedules, limit){
-        let container = "";
+        let container = "<tr></tr>";
         schedules.forEach((schedule)=>{
             const content = `            
             <tr>
-                <td>` + schedule["subjectcode"] + `<p class="p">` + schedule["timeslot"] + `</p></td>
-                <td class="spacing">` + schedule["batch"]["course"] + " " + schedule["batch"]["section"] + `</td>
+                <td class="table-item" style="min-width: 200px; max-width: 200px; margin-right:10px;">` + schedule["subjectcode"] + ` - ` + schedule["timeslot"] + `</td>
+                <td class="" style="margin-left: 70px; min-width:80px; max-width: 80px;">` + schedule["batch"]["course"] + " - " + schedule["batch"]["section"] + `</td>
             </tr>`;
 
             container += content;
         });
 
         return container;
+    }
+
+    function showAddScheduleModal(){
+        $('#scheduleModal').modal('show');
     }
 

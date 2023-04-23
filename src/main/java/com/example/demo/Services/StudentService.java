@@ -63,4 +63,8 @@ public class StudentService {
         return studentRepository.getExcludedStudents(schedid);
     }
 
+    // public Student getStudentByRFID(String rfid) {
+    //     return studentRepository.getStudentByRFID(rfid);
+    // }
+
 }
