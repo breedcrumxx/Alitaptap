@@ -8,7 +8,7 @@ import com.example.demo.Models.RFID;
 
 public interface RFIDRepository extends JpaRepository<RFID, Integer> {
 
-    @Query(value = "select * from rfid where rfid=:id", nativeQuery = true)
-    RFID getRFIDById(@Param("id") String id);
+    @Query(value = "select rfid.id, rfid.rfid, rfid.used_by from rfid where rfid.rfid=:id", nativeQuery = true)
+    RFID findRFIDByRfid(@Param("id") String rfid);
 
 }

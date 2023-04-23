@@ -14,35 +14,11 @@ import com.example.demo.Repositories.RFIDRepository;
 import com.example.demo.Services.RFIDService;
 
 @SpringBootApplication
-public class DemoApplication implements ApplicationRunner {
-
-	@Autowired
-	public RFIDService rfidService;
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		ConfigurableApplicationContext appContext = SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 
-		RFIDService service = appContext.getBean(RFIDService.class);
-
-		// Thread t = new Thread(new Runnable(){
-		// 	@Override
-		// 	public void run() {
-		// 		while(true){
-
-		// 			String id = input.nextLine();
-		
-		// 			rfidService.saveRFID(id);
-		// 		}
-		// 	}
-		// });
-		// t.run();
-	}
-
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		rfidService.trySaveRFID();
-		throw new UnsupportedOperationException("Unimplemented method 'run'");
 	}
 
 }

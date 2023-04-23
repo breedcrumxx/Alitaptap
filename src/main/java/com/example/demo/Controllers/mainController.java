@@ -16,6 +16,14 @@ public class mainController {
         return page;
     }
 
+    @GetMapping(path = "/reader")
+    private ModelAndView throwReader(){
+        ModelAndView page = new ModelAndView();
+        page.setViewName("/reader");
+
+        return page;
+    }
+
     // @PostMapping(path = "/test", produces = org.springframework.http.MediaType.TEXT_HTML_VALUE)
     // @ResponseBody
     // private String welcomeAsHTML() throws IOException {

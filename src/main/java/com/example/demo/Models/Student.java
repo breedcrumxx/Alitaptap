@@ -79,6 +79,7 @@ public class Student {
         return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, BatchId, Address, StudentRFID);
     }
 
+
     @Override
     public String toString() {
         return "{" +
@@ -87,9 +88,9 @@ public class Student {
             ", LastName='" + getLastName() + "'" +
             ", MiddleName='" + getMiddleName() + "'" +
             ", StudentId='" + getStudentId() + "'" +
-            ", GroupId='" + getBatchId() + "'" +
             "}";
     }
+
 
 
 }
