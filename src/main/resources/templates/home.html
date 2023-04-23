@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script
+  src="https://code.jquery.com/jquery-3.6.4.js"
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>
+  
+</head>
+<body>
+    <h1>Welcome to our system</h1>
+    <p>Login</p>
+    <a th:href="@{http://localhost:8080/create-account}">Register</a>
+    <a th:href="@{http://localhost:8080/test}">Test Page</a>
+    <button onClick="fireTest()">test</button>
+
+    <div id="containers">
+        <p>heelo</p>
+    </div>
+
+</body>
+<script>
+    async function exec(url, method = "GET", data = null){
+        const response = await fetch(url, {
+            method,
+            redirect: "follow", 
+            referrerPolicy: "no-referrer"
+        });
+
+        return await response;
+    }
+
+
+    async function fireTest(){
+        // let content = await exec("/test", "POST", "");
+        // console.log(content);
+
+
+        var content;
+
+        $.ajax({
+            method: "POST",
+            url: "/test",
+            data: "",
+            async: false,
+            // dataType: "string",
+            success: function(data){
+                console.log(typeof(data));
+                content = data;
+            }
+        });
+
+        $('#containers').append(content);
+
+        $.ajax({
+            method: "POST",
+            url: "/get-students",
+            dataType: "json",
+            async: false,
+            success : function(data){
+                content = data;
+                // console.log(data);
+            }
+        });
+
+        console.log(content);
+
+        content.forEach(function(obj) { 
+            console.log(obj.ClassId); 
+            $('#table-container').append(
+                "<tr> " 
+                    + "<td>" + obj.Id + "</td>" 
+                    + "<td>" + obj.FirstName + "</td>" 
+                    + "<td>" + obj.LastName + "</td> " 
+                    + "<td>" + obj.MiddleName + "</td>" 
+                    + "<td>" + obj.StudentId+ "</td>" 
+                    + "<td>" + obj.ClassId + "</td>" + 
+                "</tr>"
+            );
+        });
+
+        // content = await fetch("/get-students", {
+        //     method: "POST",
+        //     dataType: "application/json"
+        // });
+
+        // console.log(await content);
+
+        // console.log(content);
+        // $('container').innerHTML = content;
+
+        // var loc = window.location.pathname;
+
+        // let obj;
+        // console.log("here");
+
+
+        // $('#container').append("<p>java</p>");
+
+
+
+        // console.log(obj[0]);
+
+    }
+</script>
+</html>

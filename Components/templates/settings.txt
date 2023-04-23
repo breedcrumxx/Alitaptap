@@ -1,0 +1,33 @@
+<div class="wrapper">
+ <div class="content">
+            <div>
+                <p class="location">Settings</p>
+
+            </div>
+
+            <div class="profileContainer">
+                <div class="profileCircle">
+                    <ion-icon name="person-circle-outline" 
+                    style="position: absolute; top: 50%; left: 50%;transform: translate(-50%,-50%); width: 110px; height:110px;">
+                    </ion-icon>
+                </div>
+            </div>
+                <div class="input-line">
+                    <label for="">Full name</label>
+                    <input type="text" class = "fullName" placeholder="Enter your First name here" >
+                </div>
+                <div class="input-line">
+                    <label for="">User name</label>
+                    <input type="text" class = "userName" placeholder="Enter your User name here" >
+                </div>
+                <div class="input-line">
+                    <label for="">Description</label>
+                    <input type="text" class = "description" placeholder="Enter your Description here" >
+                </div>
+                  <button type="submit">Update</button>
+                  
+            </div>
+                  
+
+        </div>
+</div>

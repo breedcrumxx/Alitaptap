@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <input name="Course" type="text">
+        <input name="Section" type="text">
+        <input onclick="sub()" type="button">
+    </form>
+
+    <script>
+        async function sub(){
+            const form = new FormData(document.getElementById('form'));
+            console.log(form);
+            const value = Object.fromEntries(form.entries());
+
+            const response = await fetch("http://localhost:8080/api/classes/create-class", {
+                method: "POST",
+                mode: "no-cors", // no-cors, *cors, same-origin
+                headers: {
+                "Content-Type": "application/json",
+                },
+               // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(value)
+            })
+
+            console.log(response);
+        }
+    </script>
+</body>
+</html>

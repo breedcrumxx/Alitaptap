@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="styleDashboard.css" rel="stylesheet">  -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            /* overflow: hidden; */
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+        .containers {
+            width: 1150px;
+            height: 613px;
+            display: flex;
+        }
+
+        /* Left sidebar config */
+        .nav {
+            position: fixed;
+            height: 100%;
+            width: 20%;
+            background-color:#111056;
+        }
+
+        .nav ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding-left: 15px;
+            padding-top: 200px;
+        }
+
+        .nav ul li {
+            position: relative;
+            list-style-type: none;
+            width: 100%;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+
+        .nav ul li a {
+            position: relative;
+            display: block;
+            width: 100%;
+            display: flex;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav ul li a .icon {
+            position: relative;
+            display: block;
+            min-width: 40px;
+            line-height: 30px;
+            text-align: center;
+            padding-top: 13px;
+            margin-left: 25px;
+            /* border: 1px solid red; */
+        }
+
+        .nav ul li a .icon ion-icon {
+            font-size: 1.5em;
+        }
+
+        .nav ul li a .label {
+            position: relative;
+            display: block;
+            padding-left: 20px;
+            height: 50px;
+            line-height: 53px;
+            /* border: 1px solid red; */
+        }
+
+        /* Active toggle css */
+        .nav ul li.active {
+            background-color: white;
+        }
+
+        .nav ul li.active a {
+            color: black;
+        }
+
+        /* Active link corners */
+        .nav ul li b:nth-child(1) {
+            position: absolute;
+            top: -10px;
+            height: 10px;
+            width: 100%;
+            background-color: white;
+            display: none;
+        }
+
+        .nav ul li b:nth-child(1)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-bottom-right-radius: 20px;
+            background-color: #111056;
+        }
+
+        .nav ul li b:nth-child(2) {
+            position: absolute;
+            bottom: -20px;
+            height: 20px;
+            width: 100%;
+            background-color: white;
+            display: none;
+        }
+
+
+        .nav ul li b:nth-child(2)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-top-right-radius: 20px;
+            background-color: #111056;
+        }
+
+        .nav ul li.active b:nth-child(1),
+        .nav ul li.active b:nth-child(2) {
+            display: block;
+        }
+
+        /* End of left sidebar config */
+
+        .logo {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .sq {
+            width: 40px;
+            height: 40px;
+            /* border: 1px solid black; */
+            /* background-color: black; */
+            position: absolute;
+        }
+
+        .sq1 {
+            background-color: #17156D;
+            margin-top: 15px;
+        }
+        .sq2 {
+            background-color: #0172B7;
+            margin-left: 20px;
+            margin-top: 35px;
+        }
+        .sq3 {
+            background-color: #01BFEE;
+            margin-left: 50px;
+            margin-top: 3px;
+        }
+
+        .content {
+            position: fixed;
+            left: 20%;
+            width: 73.8%;
+            height: 613px;
+            padding-left: 40px;
+            padding-top: 10px;
+            /* border: 1px solid red; */
+        }
+
+        .right-sidebar {
+            position: fixed;
+            right: 0;
+            background-color: #111056;
+            height: 613px;
+            width: 70px;
+            /* margin-left: 60%; */
+            /* position: fixed; */
+            /* z-index: 1;
+            top: 0;
+            left: 0; 
+            overflow-x: hidden; */
+            display: flex;
+            justify-content: center;
+        }
+
+        .circle {
+            width: 45px;
+            height: 45px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .space {
+            /* padding: auto; */
+            margin-top: 380px;
+            /* padding: 50% 50%; */
+        }
+
+        .extra {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .location {
+            font-size: 22px;
+            font-weight: 550;
+        }
+
+        #welcome {
+            font-size: 24px;
+            font-weight: 500;
+            color: #646464;
+        }
+
+        #containerGrey{
+            /* position: relative; */
+            width: 710px;
+            height: 93px;
+            margin-top: 13px;
+            left: 276px;
+            top: 79px;
+            background: #D9D9D9;
+            border-radius: 10px;
+        }
+
+        .schedules {
+            margin-top: 13px;
+        }
+
+        .cards {
+            margin-top: 6px;
+            width: 710.25px;
+            height: 120px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: auto auto auto auto;
+        }
+
+        .card {
+            width: 163px;
+            height: 120px;
+            background: #d9d9d9;
+            border-radius: 15px;
+                        
+            z-index: 2;
+            flex: 1 1 calc(50% - 10px);
+            height: calc(100% - 10px);
+            flex: 1 1 calc(50% - 10px);
+            transition: all 0.5s;
+        }
+
+        /* .card {
+            width: 163px;
+            height: 120px;
+            background: black;
+            border-radius: 15px;
+            
+            z-index: 2;
+            flex: 1 1 calc(50% - 10px);
+            height: calc(50% - 10px);
+            flex: 1 1 calc(50% - 10px);
+            transition: all 0.5s;
+        } */
+
+        .card.grow {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: expand 0.6s;
+            
+        }
+
+        @keyframes expand {
+            from {
+                width: 50%;
+                height: 50%;
+                top: 50%;
+                left: 50%;
+                margin: 5px;
+                transform: translate(-50%, -50%);
+            }
+            to {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                top: 0;
+                left: 0;
+                transform: none;
+            }
+        }
+        
+
+
+        #actdiv{
+            width: 387px;
+            height: 230px;
+            margin-top: 6px;
+            background-color: #17156D;
+            border-radius: 10px;
+        }
+
+        .class-activity {
+            width: 304px;
+            height: 230px;
+            margin-top: 6px;
+            background-color: #17156D;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="containers">
+        <!-- nav div -->
+        <div class="nav">
+            <div class="logo">
+                <div class="sq1 sq"></div>
+                <div class="sq2 sq"></div>
+                <div class="sq3 sq"></div>
+            </div>
+
+            <ul>
+                <li class="list active"><a href="dashboard.html">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="clipboard-outline"></ion-icon></span>
+                    <span class="label">Dashboard</span>
+                </a></li>
+                <li class="list"><a href="schedule.html">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
+                    <span class="label">Schedules</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="label">Classes</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                    <span class="label">Settings</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                    <span class="label">Help</span>
+                </a></li>
+                <li class="list"><a href="#">
+                    <b></b>
+                    <b></b>
+                    <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <span class="label">Logout</span>
+                </a></li>
+            </ul>
+        </div>
+        <!-- end nav -->
+
+        <div class="content">
+            <div>
+                <p class="location">Dashboard</h1>
+                <p id="welcome">
+                    Welcome, Kyan!
+                </p>
+            </div>
+        
+            <div id="containerGrey"></div>
+            
+            <div class="schedules">
+                <div style="display: flex; gap: 470px;">
+                    <p>Your schedules</p><a href="#" class = "text">View all schedules-></a>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                    </div>
+                    <div class="card">
+                    </div>
+                    <div class="card">
+                    </div>
+                    <div class="card">
+                    </div>
+                </div>
+            </div>
+        
+            <div class="activities" style="display: flex; margin-top: 13px; gap: 20px;">  
+                <div>
+                    <p>Your activity</p>
+                    <div id="actdiv"></div>
+                </div>
+                <div>
+                    <p>Your class activity</p>
+                    <div class="class-activity"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- left sidebar -->
+        <div class="right-sidebar">
+            <div class="circle-container" style="margin-top: 10px">
+                <div class="circle user"></div>
+
+                <div class="space">
+                    <div class="circle extra"></div>
+                    <div class="circle extra"></div>
+                    <div class="circle extra"></div>
+                </div>
+            </div>
+        </div> 
+        <!-- left sidebar -->
+    </div> 
+    <!-- ending of container div -->
+
+    <!-- Navigation animation script -->
+    <script>
+        let list = document.querySelectorAll('.list');
+        for(let i = 0; i < list.length; i++){
+            list[i].addEventListener('click', function(){
+                let x = 0;
+                while (x < list.length){
+                    list[x++].className = 'list';
+                }
+                list[i].className = 'list active';
+            });
+        }
+
+    <!-- animation in boxes -->
+
+        const container = document.querySelector(".cards");
+        const boxs = document.querySelectorAll(".card");
+
+        boxs.forEach(box => {
+            box.addEventListener("click", function() {
+                boxs.forEach(b => {
+                    if(b !== box) {
+                        b.style.display = "none";
+                    }
+                }); 
+                box.classList.add('grow');
+                box.style.backgroundColor="white";
+            });
+        });
+    </script>
+
+    <!-- Icon plugins -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html> 

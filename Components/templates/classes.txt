@@ -1,0 +1,47 @@
+<div class="wrapper">
+    <div>
+        <p style="
+        font-size: 22px;
+        font-weight: 550;">Classes</h1>
+        <p id="welcome">
+            Welcome, Kyan!
+        </p>
+    </div>
+
+    <div class="calendar">
+        <span class="calendar-icon"><ion-icon name="calendar-number-outline"></ion-icon></span>
+        <span class="calendar-text">Calendar</span>
+    </div>
+        
+    
+    <div class="classes">
+        <div style="display: flex; gap: 470px;">
+            <!-- <p></p> -->
+        </div>
+        <div class="cards">
+            
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+            <div class="card">
+            </div>
+        </div>
+    </div>
+</div>

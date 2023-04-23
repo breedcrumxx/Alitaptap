@@ -1,0 +1,15 @@
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Middle name</th>
+            <th>Student ID</th>
+            <th>Class ID</th>
+        </tr>
+    </thead>
+    <tbody id='table-container'>
+
+    </tbody>
+</table>
