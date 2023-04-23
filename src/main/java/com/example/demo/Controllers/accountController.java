@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Models.Account;
 import com.example.demo.Models.Batch;
 import com.example.demo.Models.JsonResponse;
+import com.example.demo.Models.RFID;
 import com.example.demo.Models.Schedule;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
 import com.example.demo.Repositories.ScheduleRepository;
+import com.example.demo.Services.RFIDService;
+import com.example.demo.Services.ScheduleService;
 import com.example.demo.Services.StudentService;
 import com.example.demo.Services.SubStudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,11 +48,17 @@ public class accountController {
     @Autowired
     SubStudentService subStudentService;
 
+    @Autowired
+    RFIDService rfidService;
+
+    @Autowired
+    ScheduleService scheduleService;
+
     //create account method
     @PostMapping(path = "/create-account", consumes = "application/json", produces = "application/json")
     public JsonResponse createAccount(@RequestBody Account create){
 
-        System.out.println(create.getFullName());
+        // System.out.println(create.getFullName());
         JsonResponse response = new JsonResponse();
 
         Account match = accountRepository.findAccount(create.getUsername());
@@ -60,7 +69,10 @@ public class accountController {
             return response;
         }
 
+        RFID rfid = rfidService.create(create.getAccountRFID());
+        create.setAccountRFID(rfid);
         Account account = accountRepository.save(create);
+
         if(account == null) {
             response.status = "Error";
             response.message = "Failed to create your account. Internal server error!";
@@ -132,7 +144,7 @@ public class accountController {
 
         Account curr_acc = (Account) optAcc.get();
         
-        List<Schedule> tempSched = curr_acc.getSchedules(); // all of the schedules without students
+        List<Schedule> tempSched = scheduleService.getSchedules(id); // all of the schedules without students
         List<Schedule> finSchedules = new ArrayList<>(); // empty schedule container
 
         if(tempSched.size() == 0){
@@ -144,9 +156,10 @@ public class accountController {
 
         for(int i = 0; i < tempSched.size(); i++){
             Schedule temp = tempSched.get(i); // current sched working on
-
+            // System.out.println("here" + temp.getBatch().getId());
             if(temp.getStatus() == 1){ // check if it's an active schedule
                 List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
+                
                 List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
 
                 if(excludedStudents.size() == 0){
@@ -173,6 +186,8 @@ public class accountController {
         }catch (JsonProcessingException e){
             response.status = "Error";
             response.message = "Internal server error. (Account controller)";
+
+            System.out.println(e.toString());
         }
 
         return response;

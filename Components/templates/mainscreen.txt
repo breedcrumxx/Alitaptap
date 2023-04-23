@@ -46,7 +46,7 @@
         </div>
         <!-- end nav -->
         
-        <div class="content">
+        <div class="content" style="background-color: #F5FEFD;">
             <div class="wrapper">
             </div>
         </div>

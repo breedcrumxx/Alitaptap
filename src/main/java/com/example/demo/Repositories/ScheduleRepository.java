@@ -17,4 +17,10 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Query(value = "select * from schedule where instructor_id=:id", nativeQuery = true)
     List<Schedule> findAllByIntructorId(@Param("id") int id);
 
+    @Query(value = "select * from schedule where id=:id", nativeQuery = true)
+    Schedule getScheduleById(@Param("id") int id);
+
+    @Query(value = "select * from schedule where week_slot=:day AND instructor_id=:id", nativeQuery = true)
+    List<Schedule> getCurrentSchedule(@Param("id") int id, @Param("day") String day);
+
 }

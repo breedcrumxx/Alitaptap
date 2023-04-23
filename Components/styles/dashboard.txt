@@ -32,11 +32,17 @@
             font-family: "poppins", sans-serif;
             font-weight: 700;
         }
+
         .table{
             border-collapse: separate;
             border-spacing: 1em;
             margin-left: 10px;
         }
+
+        .table-item {
+            width: calc(50% - 200px);
+        }
+        
         tr td{
             font-size: 12px;
         }

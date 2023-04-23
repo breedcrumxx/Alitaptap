@@ -2,11 +2,14 @@ package com.example.demo.Models;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.Id;
@@ -15,8 +18,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table( 
     name = "batch",
     uniqueConstraints = {
@@ -36,6 +38,7 @@ public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "batch_seq")
     @JsonProperty("id")
+    @JsonManagedReference
     private int Id;
 
     @JsonProperty("course")

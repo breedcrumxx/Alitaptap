@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -57,8 +61,14 @@ public class Account {
     @JsonProperty("role")
     private String Role = "";
 
-    @OneToMany(mappedBy = "Instructor")
-    private List<Schedule> schedules;
+    // @OneToMany(mappedBy = "Instructor")
+    // private List<Schedule> schedules;
+
+    @OneToOne
+    @JoinColumn(name = "rfid_id")
+    @JsonProperty("rfid")
+    @JsonBackReference
+    private RFID AccountRFID;
 
     public Account() {
     }
@@ -78,22 +88,10 @@ public class Account {
             "}";
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Account)) {
-            return false;
-        }
-        Account account = (Account) o;
-        return Id == account.Id && Objects.equals(Username, account.Username) && Objects.equals(Password, account.Password) && Objects.equals(FullName, account.FullName) && Objects.equals(Sex, account.Sex) && Objects.equals(Role, account.Role) && Objects.equals(schedules, account.schedules);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id, Username, Password, FullName, Sex, Role, schedules);
-    }
-
+    // @Override
+    // public int hashCode() {
+    //     return Objects.hash(Id, Username, Password, FullName, Sex, Role, schedules);
+    // }
 
     @Override
     public String toString() {
@@ -104,7 +102,6 @@ public class Account {
             ", FullName='" + getFullName() + "'" +
             ", Sex='" + getSex() + "'" +
             ", Role='" + getRole() + "'" +
-            ", schedules='" + getSchedules() + "'" +
             "}";
     }
 

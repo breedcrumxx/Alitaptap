@@ -2,6 +2,10 @@ package com.example.demo.Models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -35,13 +39,18 @@ public class Schedule {
     @JsonProperty("instructor")
     private Account Instructor;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
     @ManyToOne
     @JoinColumn(name = "batch_id")
     @JsonProperty("batch")
+    @JsonAlias("batch_id")
     private Batch batch;
 
-    @JsonProperty("timeslot")
-    private String TimeSlot;
+    @JsonProperty("start_at")
+    private String StartAt;
+
+    @JsonProperty("end_at")
+    private String EndAt;
 
     @JsonProperty("weekslot")
     private String WeekSlot;
@@ -55,12 +64,6 @@ public class Schedule {
     @Transient
     private List<Student> students;
 
-    @Transient
-    private List<Student> excluded;
-
-    @Transient
-    private List<Student> included;
-
     private int Status = 1;
 
     public Schedule(){
@@ -72,28 +75,28 @@ public class Schedule {
     }
 
 
-    @Override
-    public String toString() {
-        return "{" +
-            " Id='" + getId() + "'" +
-            ", BatchId='" + getBatch() + "'" +
-            ", TimeSlot='" + getTimeSlot() + "'" +
-            ", WeekSlot='" + getWeekSlot() + "'" +
-            ", SubjectCode='" + getSubjectCode() + "'" +
-            ", SubjectDescription='" + getSubjectDescription() + "'" +
-            "}";
-    }
+    // @Override
+    // public String toString() {
+    //     return "{" +
+    //         " Id='" + getId() + "'" +
+    //         ", BatchId='" + getBatch() + "'" +
+    //         ", TimeSlot='" + getTimeSlot() + "'" +
+    //         ", WeekSlot='" + getWeekSlot() + "'" +
+    //         ", SubjectCode='" + getSubjectCode() + "'" +
+    //         ", SubjectDescription='" + getSubjectDescription() + "'" +
+    //         "}";
+    // }
 
-    public String toJson() {
-        return "{"+
-            "\"id\":\"" + getId() + "\"" +
-            "\"instructor\":\"" + getInstructor() + "\"" + 
-            "\"batch\":\"" + getBatch() + "\"" +
-            "\"timeslot\":\"" + getTimeSlot() + "\"" + 
-            "\"weekslot\":\"" + getWeekSlot() + "\"" +
-            "\"subjectcode\":\"" + getSubjectCode() + "\"" +
+    // public String toJson() {
+    //     return "{"+
+    //         "\"id\":\"" + getId() + "\"" +
+    //         "\"instructor\":\"" + getInstructor() + "\"" + 
+    //         "\"batch\":\"" + getBatch() + "\"" +
+    //         "\"timeslot\":\"" + getTimeSlot() + "\"" + 
+    //         "\"weekslot\":\"" + getWeekSlot() + "\"" +
+    //         "\"subjectcode\":\"" + getSubjectCode() + "\"" +
             
-        "}";
-    }
+    //     "}";
+    // }
 
 }
