@@ -1,13 +1,12 @@
 package com.example.demo.Models;
 
-import java.util.List;
-import java.util.Objects;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -61,14 +60,10 @@ public class Account {
     @JsonProperty("role")
     private String Role = "";
 
-    // @OneToMany(mappedBy = "Instructor")
-    // private List<Schedule> schedules;
-
-    @OneToOne
-    @JoinColumn(name = "rfid_id")
     @JsonProperty("rfid")
-    @JsonBackReference
-    private RFID AccountRFID;
+    @OneToOne
+    @JoinColumn(name = "rfid")
+    private Rfid AccountRFID;
 
     public Account() {
     }

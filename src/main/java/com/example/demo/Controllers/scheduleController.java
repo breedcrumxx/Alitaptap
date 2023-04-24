@@ -22,7 +22,6 @@ import com.example.demo.Models.JsonResponse;
 import com.example.demo.Models.Schedule;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
-import com.example.demo.Repositories.ScheduleRepository;
 import com.example.demo.Services.ScheduleService;
 import com.example.demo.Services.StudentService;
 import com.example.demo.Services.SubStudentService;

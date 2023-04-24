@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.5</version>
+		<version>3.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -65,18 +65,22 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20230227</version>
-		</dependency>
+		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
+		</dependency> -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

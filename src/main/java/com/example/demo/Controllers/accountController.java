@@ -1,8 +1,6 @@
 package com.example.demo.Controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Models.Account;
-import com.example.demo.Models.Batch;
 import com.example.demo.Models.JsonResponse;
-import com.example.demo.Models.RFID;
+import com.example.demo.Models.Rfid;
 import com.example.demo.Models.Schedule;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
@@ -49,12 +46,12 @@ public class accountController {
     SubStudentService subStudentService;
 
     @Autowired
-    RFIDService rfidService;
-
-    @Autowired
     ScheduleService scheduleService;
 
-    //create account method
+    @Autowired
+    RFIDService rfidService;
+
+    // create account method
     @PostMapping(path = "/create-account", consumes = "application/json", produces = "application/json")
     public JsonResponse createAccount(@RequestBody Account create){
 
@@ -69,8 +66,8 @@ public class accountController {
             return response;
         }
 
-        RFID rfid = rfidService.create(create.getAccountRFID());
-        create.setAccountRFID(rfid);
+        Rfid createdRfid = rfidService.create(create.getAccountRFID());
+        create.setAccountRFID(createdRfid);
         Account account = accountRepository.save(create);
 
         if(account == null) {

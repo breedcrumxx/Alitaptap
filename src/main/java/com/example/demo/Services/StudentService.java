@@ -56,11 +56,13 @@ public class StudentService {
     }
 
     public List<Student> getStudents(int batchid,int schedid) {
-        return studentRepository.getStudentsFromThisSchedule(batchid ,schedid);
+        // return studentRepository.getStudentsFromThisSchedule(batchid ,schedid);
+        return null;
     }
 
     public List<Student> getExcludedStudents(int schedid) {
-        return studentRepository.getExcludedStudents(schedid);
+        // return studentRepository.getExcludedStudents(schedid);
+        return null;
     }
 
     // public Student getStudentByRFID(String rfid) {

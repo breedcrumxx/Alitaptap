@@ -29,7 +29,7 @@ public class batchController {
     BatchRepository batchRepository;
 
     // course section creation
-    @PostMapping(path = "/create-batch", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/create-batch", consumes = {"application/json", "application/xml"})
     private JsonResponse createClass(@RequestBody Batch batch){
         JsonResponse response = new JsonResponse();
 

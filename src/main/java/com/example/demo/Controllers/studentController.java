@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Models.Batch;
 import com.example.demo.Models.JsonResponse;
-import com.example.demo.Models.RFID;
 import com.example.demo.Models.Student;
 import com.example.demo.Services.BatchService;
-import com.example.demo.Services.RFIDService;
 import com.example.demo.Services.StudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,9 +30,6 @@ public class studentController {
     @Autowired
     BatchService batchService;
 
-    @Autowired
-    RFIDService rfidService;
-
     @PostMapping(path = "/create-student")
     private JsonResponse insertStudent(@RequestBody Student student){
         JsonResponse response = new JsonResponse();
@@ -47,17 +42,17 @@ public class studentController {
             return response;
         }
         
-        RFID rfid = student.getStudentRFID();
-        RFID createdRfid = rfidService.create(rfid);
+        // RFID rfid = student.getStudentRFID();
+        // RFID createdRfid = rfidService.create(rfid);
 
-        if(createdRfid == null){
-            response.status = "Error";
-            response.message = "Error creating a student record, internal server error.";
+        // if(createdRfid == null){
+        //     response.status = "Error";
+        //     response.message = "Error creating a student record, internal server error.";
 
-            return response;
-        }
+        //     return response;
+        // }
         
-        student.setStudentRFID(createdRfid);
+        // student.setStudentRFID(createdRfid);
         Student createdStudent = studentService.create(student);
 
         if(createdStudent == null){

@@ -55,42 +55,11 @@ public class Student {
     
     @JsonProperty("rfid")
     @OneToOne
-    @JoinColumn(name = "rfid_id", referencedColumnName = "id")
-    @JsonBackReference
-    private RFID StudentRFID;
+    @JoinColumn(name = "rfid_id")
+    private Rfid StudentRFID;
     
     public Student(){
 
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Student)) {
-            return false;
-        }
-        Student student = (Student) o;
-        return Id == student.Id && Objects.equals(FirstName, student.FirstName) && Objects.equals(LastName, student.LastName) && Objects.equals(MiddleName, student.MiddleName) && Objects.equals(StudentId, student.StudentId) && Objects.equals(BatchId, student.BatchId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, BatchId, Address, StudentRFID);
-    }
-
-
-    @Override
-    public String toString() {
-        return "{" +
-            " Id='" + getId() + "'" +
-            ", FirstName='" + getFirstName() + "'" +
-            ", LastName='" + getLastName() + "'" +
-            ", MiddleName='" + getMiddleName() + "'" +
-            ", StudentId='" + getStudentId() + "'" +
-            "}";
-    }
-
-
 
 }

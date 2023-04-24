@@ -17,7 +17,6 @@ public class SubStudent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @JsonProperty("id")
     private int Id;
 
