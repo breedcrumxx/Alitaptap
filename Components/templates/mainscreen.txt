@@ -1,73 +1,167 @@
-    <div class="container">
-        <!-- nav div -->
-        <div class="nav">
-            <div class="logo">
-                <img src="https://doc-00-bg-docs.googleusercontent.com/docs/securesc/1i639qsrb4os93pou0m7rjqogo96gkao/a6gmibkgr4id50hlu97h0pf22nnr6sp6/1681347675000/04492705916459634682/04492705916459634682/1YUmDpg1Pxy7qtGpMNWe6RuApvbJc3A79?e=view&ax=ALy03A72NNDsCRfohCnF4m5OgpVXT9smbw3hQm6931dXVTN3DPOCbHigz54y5zdxIYxjxC4HeV8JAQerKubN9gF2pzhfw71Qqnhzww57T-62bO2Cg-UmbehbyxhgJF-65JdvShF-P9pmWH2ITcQxrsgRcx2kj0Tst1ZfmHW2RqfvPM_1cxKToO4XshjSTXQH0ybqEXZC0T45y13E-S6Bs9aeIh9cvUMXwlgqq8zk9mbl-NDe58V6-JcQswhAyRnXm785WJ5VJLvzlVoLCts023ZzszD88VqMhQiLxRtTBufEMDW6mq0R6da9FRkUdf_DnviTMqhm_M9le0agWa5yHGPD1Hr-ChRaxjiMimOALsdzJhk4GxQmHs9a2jeiv17mIRQccOyyv49Gv8itcfXEC-2FOFT4Mt8Tz51Ap-mRPGgnuswFNO2gZ40F3SkCoF5KbXqfa2DlRkXxf2k87WOmBsEwBJM3vZJYeS_YXmpiDOr39OtFRokMSEoHSLrkBnzgG8khgVKRyIhkow0IX-Z5o_30j64nUz-misv85zuIb-x2eiVisowDlU8IAV9Hp2h_5uZYdQI7P4VMTrX0_zIAr4cypT9cSMDAuj4lIuCraS6Fa2vvBIvaGMlmX7BghJwBnC08VtAW0Nc_jkURtjaOgAvFxSbOZeF0_HoR-mZyY6aF6lgoGyYbi4_vW8QOfDAM6JsRdQKnfQTJZ8NiiMQC96GIwpV-UpY-HyntgWSV0CWNuDYWyeofDw72TSjubqhvxsts5WVBuSl_L_NNu9KJWRNca-v64oX6KQqaKr8gqtAjdAcO4QrCS3AXamU41hxFD1cVfyirFScwfXVKiSgGLf9XZDtiI8UcQPDUEHknkQNAoQblY2pn2RYOeAVu0uLMM55TjZTH4k3A4Q_Ims0SmZG5xOBBuO7cpkRCfIWegpwzD-regXDWZv0mBol602zaEK-lFo--1uS7BFIOG4Nhdk3N0MMxnEDRzpbIlkS_HVe7p3ZZRA&uuid=78a9b79e-09a5-4ccc-9f04-649cb91e3310&authuser=0&nonce=3ffua8nm2843s&user=04492705916459634682&hash=4ahm1brblu3rqtfj51fvp8j3pcul0lq5" alt="company-logo" class="comp-logo">
-            </div>
+<div class="container">
+    <!-- nav div -->
+    <div class="nav">
+        <div class="logo">
+            <img src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81quLCkVXEhAPDpDSd25iRuXgSpmNuiwXH-1GL-NszvIDCam3AAaJCo_cVWdssEFrIftA50gby5jiLWkOk4K7qxJS4bNqA=s2560" alt="company-logo" class="comp-logo">
+        </div>
 
-            <ul>
-                <li class="list active"><a href="#">
-                    <b></b>
-                    <b></b>
-                    <span class="icon"><ion-icon name="clipboard-outline"></ion-icon></span>
-                    <span class="label">Dashboard</span>
-                </a></li>
-                <li class="list"><a href="#">
-                    <b></b>
-                    <b></b>
-                    <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
-                    <span class="label">Schedules</span>
-                </a></li>
-                <li class="list"><a href="#">
-                    <b></b>
-                    <b></b>
-                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-                    <span class="label">Classes</span>
-                </a></li>
-                <li class="list"><a href="#">
-                    <b></b>
-                    <b></b>
-                    <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
-                    <span class="label">Settings</span>
-                </a></li>
-                <li class="list"><a href="#">
-                    <b></b>
-                    <b></b>
-                    <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
-                    <span class="label">Help</span>
-                </a></li>
-                <li class="list"><a href="#">
-                    <b></b>
-                    <b></b>
-                    <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
-                    <span class="label">Logout</span>
-                </a></li>
+        <ul>
+            <li class="list active"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="clipboard-outline"></ion-icon></span>
+                <span class="label">Dashboard</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
+                <span class="label">Schedules</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                <span class="label">Classes</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                <span class="label">Settings</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                <span class="label">Help</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                <span class="label">Logout</span>
+            </a></li>
+        </ul>
+    </div>
+    <!-- end nav -->
+    
+    <div class="content">
+        <div class="wrapper">
+        </div>
+    </div>
+
+    <div id="blur-placer"></div>
+    <!-- User settings -->
+    <div style="
+        position: absolute;
+        right: -290px;
+        width: 290px;
+        height: 100%;
+        background-color: white;
+        box-shadow: 0 3px 5px 2px #c0c6ca;
+        z-index: 0;
+        padding: 18px;
+        transition: 1s;
+    " id="user-settings">
+        <div style="
+        ">
+            <img style="
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                border: 2px solid black;
+            " src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81qBImdvUXag4oVYKCgng9Kk7FcJ6vzDoklOt1VKa88qcSp865HBwWAUpDVOBlp6K1RkoPDSW8HhOw-T4U5wEXZHjpdSvw=s1600" alt="user-profile" class="">
+        </div>
+
+        <p style="
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 0px;
+        " id="username">Dan Rosete</p>
+        <p style="
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 10px;
+        " id="role">Instructor</p>
+
+        <textarea style="
+            height: 135px;
+            width: 256px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 1px solid #464646;
+        " id="description" name="freeform" rows="4" cols="50">
+        </textarea>
+
+        <div id="settings" style="margin-top: 10px;">
+            <ul style="
+                list-style: none;
+            ">
+                <li class="setting clickable">
+                    <p class="user-setting">Change user credential</p>
+                    <p class="setting-desc">Change your account details and information</p>
+                </li>
+                <li class="setting clickable">
+                    <p class="user-setting">Request to be admin</p>
+                    <p class="setting-desc">Send a request to admin for account elevation</p>
+                </li>
+                <li>
+                    <p class="user-setting clickable">Disable account</p>
+                    <p class="setting-desc">Disable your account temporarily. A request to the admins is needed for reactivation.</p>
+                </li>
             </ul>
         </div>
-        <!-- end nav -->
-        
-<<<<<<< HEAD
-        <div class="content">
-=======
-        <div class="content" style="background-color: #F5FEFD;">
->>>>>>> f48b1689430568b9036d93dae86ffeb858ea1d1b
-            <div class="wrapper">
+
+        <div style="
+            display: flex;
+            margin-top: 70px;
+        ">
+
+            <div style="
+                cursor: pointer;
+                display: flex;
+            " onclick="logout()">
+
+                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 4L17.5 4C20.5577 4 20.5 8 20.5 12C20.5 16 20.5577 20 17.5 20H14M3 12L15 12M3 12L7 8M3 12L7 16" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <p style="
+                    font-size: 14px;
+                    color: black;
+                    line-height: 25px;
+                    margin-left: 10px;
+                ">Logout</p> 
+            </div>
+
+            <p style="
+                font-size: 12px;
+                color: black;
+                line-height: 25px;
+                margin-left: 125px;
+                cursor: pointer;
+            " onclick="hideUserSettings()">Close</p>
+            
+        </div>
+    </div>
+    <!-- End of user settings -->
+
+    <!-- left sidebar -->
+    <div class="right-sidebar">
+        <div class="circle-container" style="margin-top: 10px">
+            <div class="circle user"></div>
+
+            <div class="space">
+                <div class="circle extra"></div>
+                <div class="circle extra"></div>
+                <div class="circle extra" onclick="showUserSettings()"></div>
             </div>
         </div>
-
-        <!-- left sidebar -->
-        <div class="right-sidebar">
-            <div class="circle-container" style="margin-top: 10px">
-                <div class="circle user"></div>
-
-                <div class="space">
-                    <div class="circle extra"></div>
-                    <div class="circle extra"></div>
-                    <div class="circle extra"></div>
-                </div>
-            </div>
-        </div> 
-        <!-- left sidebar -->
     </div> 
-    <!-- ending of container div -->
+    <!-- left sidebar -->
+
+
+</div> 
+<!-- ending of container div -->
 

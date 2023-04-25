@@ -1,4 +1,5 @@
-    class User {
+   //page configuration
+   class User {
         constructor(id, name, role, sex){
             this.id = id;
             this.name = name;
@@ -19,9 +20,90 @@
         }
     }
 
-    //get current state
-
     var currentUser;
+    var userdetails;
+    //
+
+    // eraseCookie('state');
+    // eraseCookie('user');
+
+    //get current state
+    (async function(){
+        var state = getCookie('state');
+        var user = getCookie('user');
+        console.log(user);
+        console.log(state);
+
+        await cover_curtain();
+
+        if(state == null){ // throw default if no state
+            console.log("in null state");
+            let style = await getData("GET", "/get-style/login");
+                document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
+
+            let template = await getData("GET", "/get-template/login");
+                document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
+
+            draw_curtain();
+            return;
+        }
+
+        const jsonUser = JSON.parse(user);
+
+        userdetails = user;
+        currentUser = new User(jsonUser['id'], jsonUser['name'], jsonUser['role'], jsonUser['sex']);
+
+        let style = await getData("GET", "/get-style/mainscreen");
+            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
+
+        let template = await getData("GET", "/get-template/mainscreen");
+            document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
+
+        await nav_init();
+
+        if(state == "dashboard"){
+            document.cookie = null;
+            await compose_content(0);
+        }
+        if(state == "schedule"){
+            document.cookie = null;
+            await compose_content(1);
+        }
+
+        draw_curtain();
+
+    })();
+
+    async function logout(){
+        await eraseCookie('state');
+        await eraseCookie('user');
+        location.reload();
+    }
+
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    async function eraseCookie(name) {   
+        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
 
     async function sendData(url, data){
         const response = await $.ajax({
@@ -44,22 +126,16 @@
         }
     }
 
-    async function openNav() {
+    async function next_form(){
         var form = new FormData(document.querySelector('#reg-form'));
 
-        // console.log("sex: " + sex);
-        // console.log("role: " + role);
-        // return;
         const username = form.get('username');
-        const fullname = form.get('fullname');
         const password = form.get('password');
         const repass = form.get('repass');
         const sex = form.get("sex");
         const role = form.get("role");
 
-        // some inputs are empty
         if(username === "" ||
-        fullname === "" ||
         password === "" ||
         repass == ""){
             document.querySelector('#error-placer').innerHTML = "Please fill in the form."; //send warning
@@ -73,6 +149,51 @@
 
         if(password.length < 8){
             document.querySelector('#error-placer').innerHTML = "Password must atleast be 8 characters long.";
+            return;
+        }
+
+        let user = {
+            username,
+            password,
+            sex,
+            role
+        }
+
+        setCookie('register_data', user, 1);
+
+        // inject next page
+        let next_form = `
+        <form id="reg-form">
+            <p id="error-placer" class="text-danger" style="margin-bottom: 10px; color: red;"></p>
+            <label style="margin-top: 50px">First name:</label>
+            <input name='firstname' class='input' type='text' placeholder='First name'>
+
+            <label>Middle name:</label>
+            <input name='middlename' class='input' type='text' placeholder='Middle name'>
+
+            <label>Last name:</label>
+            <input name='lastname' class='input' type='text' placeholder='Last name'>
+
+            <input style='margin-bottom: 25px;' type='button' value='Submit' onclick='next_form()'>
+        </form>`;
+
+        document.querySelector('#reg-form').innerHTML = next_form;
+        
+    }
+
+    async function openNav() {
+        var form = new FormData(document.querySelector('#reg-form'));
+
+        const fullname = form.get('fullname');
+        const password = form.get('password');
+        const repass = form.get('repass');
+
+        // some inputs are empty
+        if(username === "" ||
+        fullname === "" ||
+        password === "" ||
+        repass == ""){
+            document.querySelector('#error-placer').innerHTML = "Please fill in the form."; //send warning
             return;
         }
 
@@ -147,7 +268,7 @@
         let style = await getData("GET", "/get-style/registration");
             // console.log(typeof(style));
             document.querySelector('#login-style').remove();
-            document.querySelector('#style').insertAdjacentHTML("afterend", style);
+            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
 
         let template = await getData("GET", "/get-template/registration");
             // console.log(template);
@@ -205,40 +326,47 @@
             document.querySelector('#password').focus();
             return;
         }
-        
-        console.log(status);
 
         await cover_curtain();
-        console.log(message);
+        userdetails = message;// save user details
+
         let {id, name, role, sex} = JSON.parse(message);
-        console.log("id" + id);
+
         currentUser = new User(id, name, role, sex);
         
         //inject dashboard template
         let style = await getData("GET", "/get-style/mainscreen");
             document.querySelector('#login-style').remove();
-            document.querySelector('#style').insertAdjacentHTML("afterend", style);
+            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
 
         let template = await getData("GET", "/get-template/mainscreen");
             document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
         
-        nav_init();
-        compose_content(0);
-        document.cookie = "state=dashboard";
+        await nav_init();
+        await compose_content(0);
+
         draw_curtain();
+    }
+
+    function showUserSettings(){
+        document.querySelector('#user-settings').style.right = "70px";
+    }
+
+    function hideUserSettings(){
+        document.querySelector('#user-settings').style.right = "-290px";
     }
 
     async function nav_init(){
         let list = document.querySelectorAll('.list');
         for(let i = 0; i < list.length; i++){
-            list[i].addEventListener('click', function(){
+            list[i].addEventListener('click', async function(){
                 console.log("clicked");
                 let x = 0;
                 while (x < list.length){
                     list[x++].className = 'list';
                 }
                 list[i].className = 'list active';
-                compose_content(i);
+                await compose_content(i);
             });
         }
     }
@@ -246,36 +374,44 @@
     async function compose_content(id){
         if(id == 0){
             document.querySelector('.wrapper').remove();
+            if(document.querySelector('#diff-style') != null){
+                document.querySelector('#diff-style').remove();
+            }
 
             let style = await getData("POST", "/get-style/dashboard");
-                document.querySelector('#style').insertAdjacentHTML("afterend", style);
+                document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
 
             let template = await getData("POST", "/get-template/dashboard");
                 document.querySelector('.content').innerHTML = template;
 
-                dashboard_init();
-                document.cookie = "state=dashboard";
+                await dashboard_init();
+                setCookie('state','dashboard', 1);
+                setCookie('user',userdetails, 1);
         }
 
         if(id == 1){
             document.querySelector('.wrapper').remove();
+            if(document.querySelector('#diff-style') != null){
+                document.querySelector('#diff-style').remove();
+            }
 
             let style = await getData("POST", "/get-style/schedule");
-            document.querySelector('#style').insertAdjacentHTML("afterend", style);
+            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
 
             let template = await getData("POST", "/get-template/schedule");
             document.querySelector('.content').innerHTML = template;
 
-
-                schedule_init();
-            
+                // await schedule_init();
+                setCookie('state','schedule', 1);
+                setCookie('user', userdetails, 1);
         }
 
         if(id == 2){
             document.querySelector('.wrapper').remove();
+            document.querySelector('#diff-style').remove();
 
             let style = await getData("POST", "/get-style/classes");
-            document.querySelector('#style').insertAdjacentHTML("afterend", style);
+            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
 
             let template = await getData("POST", "/get-template/classes");
             document.querySelector('.content').innerHTML = template;
@@ -391,55 +527,93 @@
             }
         });
 
-
-
         //get schedules
         let {status, message} = await getData("GET", "/api/schedule/" 
         + currentUser.id + "/current-schedule");
 
+        console.log(status);
             if(status == "Error"){
                 //throw error
+
+                return;
             }
 
             if(status == "Empty"){
                 //throw empty
+                document.querySelector('.greeting').innerHTML = `
+                <div>
+                    <p style="
+                    font-size: 25px;
+                    font-weight: 700;
+                    min-width: 500px;
+                    max-width: 500px;
+                    ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+                    <div style="
+                    margin-top: 5px;
+                    ">
+                        <p style="
+                        font-size:18px;
+                        font-weight: 500;">A greate day to take a rest.</p>
+                        <p style="
+                        font-size:18px;
+                        font-weight: 500;
+                        position:relative;
+                        top: -10px;">You have no class scheduled for today.</p>
+                    </div>
+                </div>
+                <div style="
+                margin-top: 10px; 
+                margin-left: 40px; 
+                ">            
+                    <p style="
+                    font-size: 18px;
+                    font-weight: 600; 
+                    "> ` + weatherNow['location']["localtime"] + ` </p>
+                    <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
+                </div>`;
+
+                document.querySelector('#schedule-today').innerHTML = `
+                    <p> ` + message + ` </p>
+                `;
+
                 return;
+            } else {
+                document.querySelector('.greeting').innerHTML = `
+                <div>
+                    <p style="
+                    font-size: 25px;
+                    font-weight: 700;
+                    min-width: 500px;
+                    max-width: 500px;
+                    ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+                    <div style="
+                    margin-top: 5px;
+                    ">
+                        <p style="
+                        font-size:18px;
+                        font-weight: 500;">A great day to learn and teach.</p>
+                        <p style="
+                        font-size:18px;
+                        font-weight: 500;
+                        position:relative;
+                        top: -10px;">You have ` + numbers + ` class scheduled for today.</p>
+                    </div>
+                </div>
+                <div style="
+                margin-top: 10px; 
+                margin-left: 40px; 
+                ">            
+                    <p style="
+                    font-size: 18px;
+                    font-weight: 600; 
+                    "> ` + weatherNow['location']["localtime"] + ` </p>
+                    <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
+                </div>`;
             }
+
 
         const toRender = JSON.parse(message);
         const numbers = Object.keys(toRender).length;
-
-        document.querySelector('.greeting').innerHTML = `
-        <div>
-            <p style="
-            font-size: 25px;
-            font-weight: 700;
-            min-width: 500px;
-            max-width: 500px;
-            ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
-            <div style="
-            margin-top: 5px;
-            ">
-                <p style="
-                font-size:18px;
-                font-weight: 500;">A great day to learn and teach.</p>
-                <p style="
-                font-size:18px;
-                font-weight: 500;
-                position:relative;
-                top: -10px;">You have ` + numbers + ` class scheduled for today.</p>
-            </div>
-        </div>
-        <div style="
-        margin-top: 10px; 
-        margin-left: 40px; 
-        ">            
-            <p style="
-            font-size: 18px;
-            font-weight: 600; 
-            "> ` + weatherNow['location']["localtime"] + ` </p>
-            <p>` + weatherNow["current"]["condition"]["text"] + ` <span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
-        </div>`;
 
         const schedules = compose_mini_schedule(toRender);
 

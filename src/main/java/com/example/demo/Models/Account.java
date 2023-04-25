@@ -63,7 +63,7 @@ public class Account {
     @JsonProperty("rfid")
     @OneToOne
     @JoinColumn(name = "rfid")
-    private Rfid AccountRFID;
+    private RFID AccountRFID;
 
     public Account() {
     }

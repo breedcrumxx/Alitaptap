@@ -19,15 +19,14 @@
         $("#input1").on('keydown', function (e) {
             if (e.key === 'Enter' || e.keyCode === 13) {
                 console.log("wow");
-                console.log(document.querySelector('#input1').value );
+                console.log(document.querySelector('#input1').value);
                 sendRFID(document.querySelector('#input1').value);
             }
             e.stopPropagation();
-
-
         });
 
         function sendRFID(value){
+            
             $.ajax({
                 type: "POST",
                 url: "/api/rfid/verify",

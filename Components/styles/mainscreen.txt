@@ -59,11 +59,7 @@
 
     /* Active toggle css */
     .nav ul li.active {
-<<<<<<< HEAD
-        background-color: white;
-=======
         background-color: #F5FEFD;
->>>>>>> f48b1689430568b9036d93dae86ffeb858ea1d1b
     }
 
     .nav ul li.active a {
@@ -76,11 +72,7 @@
         top: -10px;
         height: 10px;
         width: 100%;
-<<<<<<< HEAD
-        background-color: white;
-=======
         background-color: #F5FEFD;
->>>>>>> f48b1689430568b9036d93dae86ffeb858ea1d1b
         display: none;
     }
 
@@ -100,11 +92,7 @@
         bottom: -20px;
         height: 20px;
         width: 100%;
-<<<<<<< HEAD
-        background-color: white;
-=======
         background-color: #F5FEFD;
->>>>>>> f48b1689430568b9036d93dae86ffeb858ea1d1b
         display: none;
     }
 
@@ -174,4 +162,26 @@
         padding-left: 40px;
         padding-top: 10px;
     }
+
+    /* user settings css*/
+
+    .user-setting {
+        font-size: 12px;
+        font-weight: 600;
+        color: black;
+        margin-top: 5px;
+
+    }
+    .setting-desc {
+        font-size: 10px;
+        color: #323232;
+        margin-bottom: 5px;
+    }
+    .setting {
+        border-bottom: 1px solid black;
+    }
+    .clickable {
+        cursor: pointer;
+    }
+
 </style>

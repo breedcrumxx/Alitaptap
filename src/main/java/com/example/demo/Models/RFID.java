@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Rfid {
+public class RFID {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,15 @@ public class Rfid {
 
     @JsonProperty("used_by")
     private String UsedBy;
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " Id='" + getId() + "'" +
+            ", rfid='" + getRfid() + "'" +
+            ", UsedBy='" + getUsedBy() + "'" +
+            "}";
+    }
+
 }

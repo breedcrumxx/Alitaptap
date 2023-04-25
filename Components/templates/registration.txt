@@ -15,16 +15,14 @@
         <!-- end left-side div -->
         <img src='https://i0.wp.com/neust.edu.ph/wp-content/uploads/2020/06/cropped-neust_logo-1-1.png?w=512&ssl=1' alt='' class='neust-logo'>
 
-        <div class='right-side'>
+        <div class='right-side' style="
+        ">
             <div class='form-container'>
-                <h2 style='text-align: center; margin-bottom: 25px;'>Create your account</h2>
+                <h3 style='text-align: center; margin-bottom: 25px;'>Create your account</h2>
                 <form id='reg-form'>
-                    <p id="error-placer" class="text-danger" style="margin-bottom: 10px; color: red;"></p>
+                    <p id="error-placer" class="text-danger" style="margin-bottom: 10px; font-size: 12px; color: red;"></p>
                     <label>Username</label>
                     <input name='username' class='input' type='text' placeholder='Username'>
-
-                    <label>First name</label>
-                    <input name='fullname' class='input' type='text' placeholder='Full name'>
 
                     <label>Password</label>
                     <input name='password' class='input' type='text' placeholder='Password'>
@@ -33,7 +31,7 @@
                     <input name='repass' class='input' type='text' placeholder='Re-enter Password'> 
 
                     <label for="role">Sex: </label> 
-                    <select name="sex" style="margin-top: 8px; margin-right: 48px;">
+                    <select name="sex" style="margin-top: 8px; margin-right: 34px;">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
@@ -44,7 +42,7 @@
                         <option value="Instructor">Instructor</option>
                     </select>
 
-                    <input style='margin-bottom: 25px;' type='button' value='Submit' onclick='openNav()'>
+                    <input style='margin-bottom: 25px;' type='button' value='Submit' onclick='next_form()'>
                 </form>
 
                 <p style='text-align: center;'>Already have an account? <br> <p onClick="login()" id="login" style="cursor: pointer; text-align: center">Login now!</p></p> 

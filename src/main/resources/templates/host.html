@@ -8,13 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <style id="style">
+
+    <style id="default-style">
         * {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            letter-spacing: .05rem;
         }
 
         body {
@@ -27,7 +28,7 @@
             display: flex;
         } 
 
-        .wrapper {
+        .content {
             background-color: #F5FEFD;
         }
     </style>
@@ -174,54 +175,14 @@
         " src="https://i0.wp.com/neust.edu.ph/wp-content/uploads/2020/06/cropped-neust_logo-1-1.png?w=512&ssl=1" alt="">
     </div>
 
-    <div class="container">
-
-        <div class="before-left"></div>
-
-        <div class="left-side">
-            <div class="statements">
-                <h1 id="branding">SAMPLE BRANDING</h1>
-                <h2 id="statement" style="margin-bottom: 98px;">SAMPLE STATEMENT</h2>
-                <p id = "lorem" style="font-size: 18px; width: 320px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
-            </div>
-            <div class="logo">
-                <img th:src="@{/images/company-logo.png}" alt="company-logo" class="comp-logo">
-            </div>
-        </div>
-        <!-- end left-side div -->
-        <img src="https://i0.wp.com/neust.edu.ph/wp-content/uploads/2020/06/cropped-neust_logo-1-1.png?w=512&ssl=1" alt="" class="neust-logo">
-
-        <div class="right-side">
-            <div class="form-container">
-                <h2 style="text-align: center; margin-bottom: 45px;">Login to your account</h2>
-                <form id="log-form">
-                    <p id="error-placer" class="text-danger" style="margin-bottom: 10px; color: red;"></p>
-
-                    <label>Username: </label>
-                    <input id="username" name="username" class="input" type="text" placeholder="Username">
-
-                    <label>Password: </label>
-                    <input id="password" name="password" class="input" type="password" placeholder="Password">
-
-                    <input style="margin-bottom: 25px;" type="button" value="Login" onclick="logMeIn()">
-                </form>
-
-                <p style="text-align: center; color:white;">Don't have an account? <br> <p id="register" style="cursor: pointer; text-align: center;" onclick="register()">Register now!</p></p> 
-            </div>
-            <!-- end of form container -->
-        </div>
-        <!-- end right-side div -->
-    </div>
-
     <!-- end container div -->
     <script
   src="https://code.jquery.com/jquery-3.6.4.js"
   integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
   crossorigin="anonymous"></script>
-
     <script type="text/javascript" th:src="@{/scripts/script.js}"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
 </body>
 </html>

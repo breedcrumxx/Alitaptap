@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Models.Account;
 import com.example.demo.Models.JsonResponse;
-import com.example.demo.Models.Rfid;
+import com.example.demo.Models.RFID;
 import com.example.demo.Models.Schedule;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
@@ -54,8 +54,6 @@ public class accountController {
     // create account method
     @PostMapping(path = "/create-account", consumes = "application/json", produces = "application/json")
     public JsonResponse createAccount(@RequestBody Account create){
-
-        // System.out.println(create.getFullName());
         JsonResponse response = new JsonResponse();
 
         Account match = accountRepository.findAccount(create.getUsername());
@@ -66,13 +64,35 @@ public class accountController {
             return response;
         }
 
-        Rfid createdRfid = rfidService.create(create.getAccountRFID());
+        //verify first
+        RFID isUsed = rfidService.verify(create.getAccountRFID().getRfid());
+
+        if(isUsed != null){
+            response.status = "Error";
+            response.message = "RFID is already in used by someone.";
+
+            return response;
+        }
+
+        //save rfid
+        RFID createdRfid = rfidService.create(create.getAccountRFID());
+
+        if(createdRfid == null){
+            response.status = "Error";
+            response.message = "Error processing you request.";
+
+            return response;
+        }
+
+        //insert to account and then save
         create.setAccountRFID(createdRfid);
         Account account = accountRepository.save(create);
 
-        if(account == null) {
+        if(account == null){
             response.status = "Error";
-            response.message = "Failed to create your account. Internal server error!";
+            response.message = "Error processing you request.";
+
+            return response;
         }
 
         response.status = "Success";

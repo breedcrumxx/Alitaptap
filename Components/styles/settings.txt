@@ -1,4 +1,4 @@
-<style>
+<style id="diff-style">
  .profileCircle{
             width: 100px;
             height: 100px;

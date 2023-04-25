@@ -1,4 +1,4 @@
-    <style id="login-style">
+    <style id="diff-style">
         * {
             margin: 0;
             padding: 0;

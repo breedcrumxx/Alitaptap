@@ -56,7 +56,7 @@ public class Student {
     @JsonProperty("rfid")
     @OneToOne
     @JoinColumn(name = "rfid_id")
-    private Rfid StudentRFID;
+    private RFID StudentRFID;
     
     public Student(){
 

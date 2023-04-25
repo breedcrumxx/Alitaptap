@@ -1,4 +1,4 @@
-<style>
+<style id="diff-style">
     #welcome {
         font-size: 24px;
         font-weight: 500;
