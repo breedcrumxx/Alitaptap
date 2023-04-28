@@ -1,6 +1,7 @@
 package com.example.demo.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -21,16 +22,13 @@ public class SubStudent {
     private int Id;
 
     @JsonProperty("student")
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "student_id")
-    private Student student;
+    private int StudentId;
 
     @JsonProperty("status")
     private String Status;
 
     @JsonProperty("schedule")
-    private int schedule;
+    private int Schedule;
 
     public SubStudent(){
 

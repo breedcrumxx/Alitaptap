@@ -8,10 +8,16 @@ import com.example.demo.Models.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Integer>{
     
-    @Query(value = "SELECT * from account where username=:username", nativeQuery = true)
+    @Query(value = "select * from account where username=:username", nativeQuery = true)
     Account findAccount(@Param("username") String username);
 
-    @Query(value = "SELECT * from account where id=?", nativeQuery = true)
+    @Query(value = "select * from account where id=?", nativeQuery = true)
     Account findAccountById(int id);
+
+    @Query(value = "select * from account where rfid=:rfid", nativeQuery = true)
+    Account getByRFID(@Param("rfid") int rfid);
+
+    @Query(value = "select * from account where id=:id", nativeQuery = true)
+    Account getAccountById(@Param("id") int instructor);
 
 }

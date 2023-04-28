@@ -30,6 +30,7 @@ public class Student {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
+    @JsonProperty("id")
     private int Id;
 
     @JsonProperty("firstname")
@@ -50,7 +51,6 @@ public class Student {
     @JsonProperty("batchid")
     @ManyToOne
     @JoinColumn(name = "batchId")
-    @JsonBackReference
     private Batch BatchId;
     
     @JsonProperty("rfid")
@@ -60,6 +60,36 @@ public class Student {
     
     public Student(){
 
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " Id='" + getId() + "'" +
+            ", FirstName='" + getFirstName() + "'" +
+            ", LastName='" + getLastName() + "'" +
+            ", MiddleName='" + getMiddleName() + "'" +
+            ", StudentId='" + getStudentId() + "'" +
+            ", Address='" + getAddress() + "'" +
+            ", BatchId='" + getBatchId() + "'" +
+            ", StudentRFID='" + getStudentRFID() + "'" +
+            "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Student)) {
+            return false;
+        }
+        Student student = (Student) o;
+        return Id == student.Id && Objects.equals(FirstName, student.FirstName) && Objects.equals(LastName, student.LastName) && Objects.equals(MiddleName, student.MiddleName) && Objects.equals(StudentId, student.StudentId) && Objects.equals(Address, student.Address) && Objects.equals(BatchId, student.BatchId) && Objects.equals(StudentRFID, student.StudentRFID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, FirstName, LastName, MiddleName, StudentId, Address, BatchId, StudentRFID);
     }
 
 }

@@ -123,9 +123,20 @@ public class accountController {
             return response;
         }
 
-        response.status = "Success";
-        response.message = "{ \"id\":\"" + account.getId() + "\", \"name\":\"" + account.getFullName() + "\", \"role\":\"" + account.getRole() + "\", \"sex\":\"" + account.getSex() + "\"}";
+        ObjectMapper map = new ObjectMapper();
+        String json = "";
 
+        try {
+            json = map.writeValueAsString(account);
+        } catch (JsonProcessingException e) {
+            response.status = "Error";
+            response.message = "Error processing your request, internal server error.";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = json;
         return response;
     }
 
@@ -141,16 +152,27 @@ public class accountController {
             return response;
         }
 
-        response.status = "success";
-        response.message = "{ \"id\":\"" + account.getId() + "\", \"name\":\"" + account.getFullName() + "\", \"role\":\"" + account.getRole() + "\", \"sex\":\"" + account.getSex() + "\"}";
+        ObjectMapper map = new ObjectMapper();
 
+        String json = "";
+        try {
+            json = map.writeValueAsString(account);
+        } catch (JsonProcessingException e) {
+            response.status = "Error";
+            response.message = "Error processing your request, internal server error.";
+
+            return response;
+        }
+
+        response.status = "success";
+        response.message = json;
         return response;
     }
 
     @GetMapping(path = "/{id}/schedules")
     public JsonResponse getSchedule(@PathVariable("id") int id){
         JsonResponse response = new JsonResponse();
-        Optional<Account> optAcc = accountRepository.findById(id);
+        Optional<Account> optAcc = accountRepository.findById(id); // change this
 
         if(!optAcc.isPresent()){
             response.status = "Error";
@@ -171,31 +193,31 @@ public class accountController {
             return response;
         }
 
-        for(int i = 0; i < tempSched.size(); i++){
-            Schedule temp = tempSched.get(i); // current sched working on
-            // System.out.println("here" + temp.getBatch().getId());
-            if(temp.getStatus() == 1){ // check if it's an active schedule
-                List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
+        // for(int i = 0; i < tempSched.size(); i++){
+        //     Schedule temp = tempSched.get(i); // current sched working on
+        //     // System.out.println("here" + temp.getBatch().getId());
+        //     if(temp.getStatus() == 1){ // check if it's an active schedule
+        //         List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
                 
-                List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
+        //         List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
 
-                if(excludedStudents.size() == 0){
-                    temp.setStudents(students);
-                    finSchedules.add(temp);
+        //         if(excludedStudents.size() == 0){
+        //             temp.setStudents(students);
+        //             finSchedules.add(temp);
 
-                    continue;
-                }
+        //             continue;
+        //         }
 
-                students.removeAll(excludedStudents);
+        //         students.removeAll(excludedStudents);
 
-                temp.setStudents(students);
-                finSchedules.add(temp);
-            }
+        //         temp.setStudents(students);
+        //         finSchedules.add(temp);
+        //     }
 
-        }
+        // }
 
         try {
-            String json = map.writeValueAsString(finSchedules);
+            String json = map.writeValueAsString(tempSched);
 
             response.status = "Success";
             response.message = json;

@@ -23,4 +23,11 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Query(value = "select * from schedule where week_slot=:day AND instructor_id=:id", nativeQuery = true)
     List<Schedule> getCurrentSchedule(@Param("id") int id, @Param("day") String day);
 
+    @Query(value = "select * from schedule where batch_id=:batchid AND (week_slot=:today AND (start_at<=:hour AND end_at>=:hour))", nativeQuery = true)
+    Schedule getBatchScheduleToday(@Param("batchid") int batchId, @Param("today") String today, @Param("hour") String hour);
+
+    @Query(value = "select * from schedule where week_slot=:today AND (time(start_at)<=time(:hour) AND time(end_at)>=time(:hour))", nativeQuery = true)
+    Schedule getScheduleTodayThisTime(@Param("today") String today, @Param("hour") String timeStamp);
+
+
 }

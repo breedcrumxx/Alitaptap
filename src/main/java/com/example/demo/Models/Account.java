@@ -51,8 +51,14 @@ public class Account {
     @JsonProperty("password")
     private String Password;
 
-    @JsonProperty("fullname")
-    private String FullName;
+    @JsonProperty("firstname")
+    private String FirstName;
+
+    @JsonProperty("lastname")
+    private String LastName;
+
+    @JsonProperty("middlename")
+    private String MiddleName;
 
     @JsonProperty("sex")
     private String Sex;
@@ -77,16 +83,11 @@ public class Account {
             "\"Id\":\"" + getId() + "\"" +
             ",\"Username\":\"" + getUsername() + "\"" +
             ",\"Password\":\"" + getPassword() + "\"" +
-            ",\"Fullname\":\"" + getFullName() + "\"" +
+            ",\"Fullname\":\"" + getFirstName() + ", " + getLastName() + "\"" +
             ",\"Sex\":\"" + getSex() + "\"" +
             ",\"Role\":\"" + getRole() + "\"" +
             "}";
     }
-
-    // @Override
-    // public int hashCode() {
-    //     return Objects.hash(Id, Username, Password, FullName, Sex, Role, schedules);
-    // }
 
     @Override
     public String toString() {
@@ -94,11 +95,13 @@ public class Account {
             " Id='" + getId() + "'" +
             ", Username='" + getUsername() + "'" +
             ", Password='" + getPassword() + "'" +
-            ", FullName='" + getFullName() + "'" +
+            ", FirstName='" + getFirstName() + "'" +
+            ", LastName='" + getLastName() + "'" +
+            ", MiddleName='" + getMiddleName() + "'" +
             ", Sex='" + getSex() + "'" +
             ", Role='" + getRole() + "'" +
+            ", AccountRFID='" + getAccountRFID() + "'" +
             "}";
     }
-
 
 }

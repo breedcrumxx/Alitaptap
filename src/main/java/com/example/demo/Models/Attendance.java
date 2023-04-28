@@ -18,22 +18,27 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    @JsonProperty("student")
-    private Student student;
+    private String FirstName;
+    private String LastName;
+    private String MiddleName;
+    private String DateTime;
+    private String Status;
+    private String Batch;
+    private int Schedule;
+    private String CurrentClass;
+    private String CurrentInstructor;
 
-    @ManyToOne
-    @JoinColumn(name = "batch_id")
-    @JsonProperty("batch")
-    private Batch batch;
-
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    @JsonProperty("schedule")
-    private Schedule schedule;
-
-    public Attendance(){
-        
+    public Attendance(String FirstName, String LastName, String MiddleName, String DateTime, String Status, String Batch, int Schedule, String CurrentClass, String CurrentInstructor) {
+        this.FirstName = FirstName;
+        this.LastName = LastName;
+        this.MiddleName = MiddleName;
+        this.DateTime = DateTime;
+        this.Status = Status;
+        this.Batch = Batch;
+        this.Schedule = Schedule;
+        this.CurrentClass = CurrentClass;
+        this.CurrentInstructor = CurrentInstructor;
     }
+
+
 }

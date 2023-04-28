@@ -88,27 +88,27 @@ public class scheduleController {
             return response;
         }
 
-        for(int i = 0; i < tempSched.size(); i++){
-            Schedule temp = tempSched.get(i); // current sched working on
+        // THIS FUNCTION IS USED TO LOAD ALL STUDENTS IN THE SCHEDULE
+        // for(int i = 0; i < tempSched.size(); i++){
+        //     Schedule temp = tempSched.get(i); // current sched working on
 
-            if(temp.getStatus() == 1){ // check if it's an active schedule
-                List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
-                List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
+        //     if(temp.getStatus() == 1){ // check if it's an active schedule
+        //         List<Student> students = studentService.getStudents(temp.getBatch().getId(), temp.getId()); // get all the students in this batch
+        //         List<Student> excludedStudents = studentService.getExcludedStudents(temp.getId());
 
-                if(excludedStudents.size() == 0){
-                    temp.setStudents(students);
-                    finSchedules.add(temp);
+        //         if(excludedStudents.size() == 0){
+        //             temp.setStudents(students);
+        //             finSchedules.add(temp);
 
-                    continue;
-                }
+        //             continue;
+        //         }
 
-                students.removeAll(excludedStudents);
+        //         students.removeAll(excludedStudents);
 
-                temp.setStudents(students);
-                finSchedules.add(temp);
-            }
-
-        }
+        //         temp.setStudents(students);
+        //         finSchedules.add(temp);
+        //     }
+        // }
 
         ObjectMapper map = new ObjectMapper();
         try {

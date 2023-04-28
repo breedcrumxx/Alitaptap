@@ -20,5 +20,15 @@ public class RFIDService {
         return rfidRepository.save(accountRFID);
     }
 
+    public RFID verifyAndCreate(RFID rfid) {
+        RFID isUsed = verify(rfid.getRfid());
+
+        if(isUsed != null){
+            return null;
+        }
+
+        return create(rfid);
+    }
+
     
 }

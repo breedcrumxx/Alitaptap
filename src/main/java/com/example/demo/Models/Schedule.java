@@ -2,10 +2,7 @@ package com.example.demo.Models;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -14,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,15 +18,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@SequenceGenerator(
-    name = "schedule_seq",
-    sequenceName = "schedule_seq",
-    initialValue = 1, allocationSize = 1
-)
 public class Schedule {
 
     @Id        
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "schedule_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private int Id;
 
@@ -43,7 +34,6 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "batch_id")
     @JsonProperty("batch")
-    @JsonAlias("batch_id")
     private Batch batch;
 
     @JsonProperty("start_at")
@@ -55,14 +45,17 @@ public class Schedule {
     @JsonProperty("weekslot")
     private String WeekSlot;
 
+    @JsonProperty("subjectname")
+    private String SubjectName;
+
     @JsonProperty("subjectcode")
     private String SubjectCode;
 
     @JsonProperty("subjectdescription")
     private String SubjectDescription;
 
-    @Transient
-    private List<Student> students;
+    // @Transient
+    // private List<Student> students;
 
     private int Status = 1;
 
@@ -74,18 +67,21 @@ public class Schedule {
         return Instructor.getId();
     }
 
-
-    // @Override
-    // public String toString() {
-    //     return "{" +
-    //         " Id='" + getId() + "'" +
-    //         ", BatchId='" + getBatch() + "'" +
-    //         ", TimeSlot='" + getTimeSlot() + "'" +
-    //         ", WeekSlot='" + getWeekSlot() + "'" +
-    //         ", SubjectCode='" + getSubjectCode() + "'" +
-    //         ", SubjectDescription='" + getSubjectDescription() + "'" +
-    //         "}";
-    // }
+    @Override
+    public String toString() {
+        return "{" +
+            " Id='" + getId() + "'" +
+            ", Instructor='" + getInstructor() + "'" +
+            ", batch='" + getBatch() + "'" +
+            ", StartAt='" + getStartAt() + "'" +
+            ", EndAt='" + getEndAt() + "'" +
+            ", WeekSlot='" + getWeekSlot() + "'" +
+            ", SubjectName='" + getSubjectName() + "'" +
+            ", SubjectCode='" + getSubjectCode() + "'" +
+            ", SubjectDescription='" + getSubjectDescription() + "'" +
+            ", Status='" + getStatus() + "'" +
+            "}";
+    }
 
     // public String toJson() {
     //     return "{"+

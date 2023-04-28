@@ -20,23 +20,69 @@ public class Log {
     @JsonProperty("firstname")
     private String Firstname;
 
-    @JsonProperty("firstname")
+    @JsonProperty("lastname")
     private String Lastname;
 
-    @JsonProperty("firstname")
+    @JsonProperty("middlename")
     private String Middlename;
 
-    @JsonProperty("firstname")
+    @JsonProperty("rfid")
+    private String RFID;
+
+    @JsonProperty("role")
     private String Role;
 
-    @JsonProperty("firstname")
+    @JsonProperty("datetime")
     private String Datetime;
+
+    @JsonProperty("status")
+    private String Status;
 
     @JsonProperty("type")
     private String Type;
 
-    @JsonProperty("current")
-    private String CurrentlyUsed;
+    @JsonProperty("currclass")
+    private String CurrentClass;
+
+    @JsonProperty("currclass")
+    private String CurrentInstructor;
+
+    public Log(String Firstname, String Lastname, String Middlename, String RFID, String Role, String Datetime, String Status, String Type, String CurrentClass, String CurrentInstructor) {
+        this.Firstname = Firstname;
+        this.Lastname = Lastname;
+        this.Middlename = Middlename;
+        this.RFID = RFID;
+        this.Role = Role;
+        this.Datetime = Datetime;
+        this.Status = Status;
+        this.Type = Type;
+        this.CurrentClass = CurrentClass;
+        this.CurrentInstructor = CurrentInstructor;
+    }
+
+    public Log(){
+        
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " Id='" + getId() + "'" +
+            ", Firstname='" + getFirstname() + "'" +
+            ", Lastname='" + getLastname() + "'" +
+            ", Middlename='" + getMiddlename() + "'" +
+            ", RFID='" + getRFID() + "'" +
+            ", Role='" + getRole() + "'" +
+            ", Datetime='" + getDatetime() + "'" +
+            ", Status='" + getStatus() + "'" +
+            ", Type='" + getType() + "'" +
+            ", CurrentClass='" + getCurrentClass() + "'" +
+            ", CurrentInstructor='" + getCurrentInstructor() + "'" +
+            "}";
+    }
+
+
+
 
     //middlename
     //lastname

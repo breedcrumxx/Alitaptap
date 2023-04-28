@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Models.Batch;
 import com.example.demo.Models.Schedule;
+import com.example.demo.Models.Student;
 import com.example.demo.Repositories.BatchRepository;
 import com.example.demo.Repositories.ScheduleRepository;
 import com.example.demo.Repositories.StudentRepository;
@@ -61,6 +63,19 @@ public class ScheduleService {
 
     public Schedule getScheduleByDayAndTime(String day, String time){
         return null;
+    }
+
+    public Schedule getStudentSchedule(int batchId, String today, String time) {
+        return scheduleRepository.getBatchScheduleToday(batchId, today, time);
+    }
+
+    public Schedule getStudentSchedule(int batchId, String today, String time, int schedid){
+        return null;
+    }
+
+    public Schedule getScheduleAsOfNow(String today, String timeStamp) { // to get the current schedule and to check if the student is in the include list
+
+        return scheduleRepository.getScheduleTodayThisTime(today, timeStamp);
     }
     
 }

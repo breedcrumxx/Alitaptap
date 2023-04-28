@@ -38,7 +38,6 @@ public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "batch_seq")
     @JsonProperty("id")
-    @JsonManagedReference
     private int Id;
 
     @JsonProperty("course")
