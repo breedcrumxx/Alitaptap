@@ -8,7 +8,7 @@ import com.example.demo.Models.Log;
 
 public interface LogRepository extends JpaRepository<Log, Integer> {
 
-    @Query(value = "select * from log where rfid=:rfid and date(datetime)=date(:date) ORDER by datetime DESC LIMIT 1;", nativeQuery = true)
-    Log getRecentLogByRfid(@Param("rfid") String rfid,@Param("date") String date);
+    @Query(value = "select * from log where rfid=:rfid ORDER by id DESC limit 1;", nativeQuery = true)
+    Log getRecentLogByRfid(@Param("rfid") String rfid);
     
 }

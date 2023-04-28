@@ -87,6 +87,7 @@ public class RFIDController {
 
             //verify if the log record to see if in or out
             Log verify = logService.getRecentLogByRfid(currStd.getStudentRFID().getRfid(), currentDateTime);
+                if(verify!=null){System.out.print(verify.toString());}
 
             // System.out.println(verify.toString());
             String logStatus = "Out";

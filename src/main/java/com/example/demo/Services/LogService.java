@@ -17,6 +17,6 @@ public class LogService {
     }
 
     public Log getRecentLogByRfid(String rfid, String date){
-        return logRepository.getRecentLogByRfid(rfid, date);
+        return logRepository.getRecentLogByRfid(rfid);
     }
 }

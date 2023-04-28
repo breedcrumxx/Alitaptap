@@ -30,5 +30,38 @@ public class SubStudentService {
         return true;
     }
 
-
+ 
 }
+
+/*
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutanburat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+burat iyutan kantutan bayuhan suntukan inuman kantutan
+*/
