@@ -15,4 +15,8 @@ public class AttendanceService {
     public Attendance create(Attendance attendance){
         return attendanceRepository.save(attendance);
     }
+
+    public Attendance verify(String rfid, String currentClass){
+        return attendanceRepository.getRecentAttendance(rfid, currentClass);
+    }
 }

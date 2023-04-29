@@ -61,7 +61,7 @@ public class batchController {
         List<Batch> listBatch = batchRepository.findAll();
 
         if(listBatch.size() == 0){
-            response.status = "Error";
+            response.status = "Empty";
             response.message = "No class found.";
 
             return response;

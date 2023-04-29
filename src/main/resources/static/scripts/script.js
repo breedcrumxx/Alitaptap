@@ -29,10 +29,14 @@
 
     //get current state
     (async function(){
+        // eraseCookie('state');
+        // eraseCookie('user');
         var state = getCookie('state');
         var user = getCookie('user');
+
+        userdetails = JSON.parse(user);
+
         console.log(user);
-        console.log(state);
 
         await cover_curtain();
 
@@ -48,17 +52,8 @@
             return;
         }
 
-        const jsonUser = JSON.parse(user);
-
-        userdetails = user;
-        currentUser = new User(jsonUser['id'], jsonUser['name'], jsonUser['role'], jsonUser['sex']);
-
-        let style = await getData("GET", "/get-style/mainscreen");
-            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
-
-        let template = await getData("GET", "/get-template/mainscreen");
-            document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
-
+        await setMainscreen();
+        await setUser();
         await nav_init();
 
         if(state == "dashboard"){
@@ -204,6 +199,7 @@
             sex,
             role
         };
+
         console.log(JSON.stringify(account));
         let { status, message } = await sendData("/api/account/create-account", account);
 
@@ -328,11 +324,9 @@
         }
 
         await cover_curtain();
-        userdetails = message;// save user details
-
-        let {id, name, role, sex} = JSON.parse(message);
-
-        currentUser = new User(id, name, role, sex);
+        userdetails = JSON.parse(message);// save user details
+        // console.log(userdetails);
+        setCookie('user', message, 1);
         
         //inject dashboard template
         let style = await getData("GET", "/get-style/mainscreen");
@@ -343,17 +337,122 @@
             document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
         
         await nav_init();
+        await setUser();
         await compose_content(0);
 
         draw_curtain();
     }
 
+    async function setUser(){
+        document.querySelector('#user-name').innerHTML = userdetails['firstname'] + " " + userdetails['lastname'];
+        document.querySelector('#role').innerHTML = userdetails['role'];
+    }
+
+    function openScheduleForm(){
+        document.querySelector('#schedule-float').style.right = "70px";
+    }
+    function hideScheduleForm(){
+        document.querySelector('#schedule-float').style.right = "-290px";
+    }
+
     function showUserSettings(){
         document.querySelector('#user-settings').style.right = "70px";
     }
-
     function hideUserSettings(){
         document.querySelector('#user-settings').style.right = "-290px";
+    }
+
+    // mainscreen configuration
+    async function setMainscreen(){
+        let style = await getData("GET", "/get-style/mainscreen");
+            document.querySelector('#default-style').insertAdjacentHTML("afterend", style);
+
+        let template = await getData("GET", "/get-template/mainscreen");
+            document.querySelector('.curtain').insertAdjacentHTML("afterend", template);
+
+        let {status, message} = await getData("GET", "/api/batch/get-batches")
+
+        let batchContent = ``;
+
+        if(status == "Empty"){
+            batchContent = message;
+        } else {
+            const batches = JSON.parse(message);
+
+            for(var i = 0; i < batches.length; i++){
+                let container = `
+                    <option value=` + batches[i]['id'] + `>` + batches[i]['course'] + " - " + batches[i]['section'] + `</option>
+                `;
+    
+                batchContent += container;
+            }
+        }
+
+        document.querySelector('#batch').innerHTML = batchContent;
+        
+    }
+
+    // function showUserSettings(){
+
+    // }
+
+    // function hideUserSettings(){
+
+    // }
+
+    // function openScheduleForm(){
+
+    // }
+
+    // function hideScheduleForm(){
+
+    // }
+
+    // end mainscreen configuration
+
+    //create schedule
+    async function createSchedule(){
+        var form = new FormData(document.querySelector('#schedule-form'));
+
+        const subjectname = form.get("subjectname");
+        const subjectcode = form.get("subjectcode");
+        const subjectdescription = form.get("subjectdesc");
+        const start_at = form.get("start_at");
+        const end_at = form.get("end_at");
+        const id = form.get("batch");
+        const weekslot = form.get("weekslot")
+
+        if(subjectname == "" ||
+        subjectcode == "" ||
+        subjectdescription == ""){
+            document.querySelector('#schedule-error-placer').innerHTML = "Please fill in the form.";
+            return;
+        }
+
+        let batch = {
+            id
+        }
+
+        let instructor = {
+            id : userdetails['id']
+        }
+
+        let scheduleData = {
+            subjectname,
+            subjectcode,
+            subjectdescription,
+            start_at,
+            end_at,
+            batch,
+            weekslot,
+            instructor
+        }
+
+        console.log(JSON.stringify(scheduleData));
+
+        let {status, message} = await sendData("/api/schedule/create-schedule", scheduleData);
+        console.log(status);
+        console.log(message);
     }
 
     async function nav_init(){
@@ -386,7 +485,7 @@
 
                 await dashboard_init();
                 setCookie('state','dashboard', 1);
-                setCookie('user',userdetails, 1);
+                setCookie('user', JSON.stringify(userdetails), 1);
         }
 
         if(id == 1){
@@ -401,9 +500,9 @@
             let template = await getData("POST", "/get-template/schedule");
             document.querySelector('.content').innerHTML = template;
 
-                // await schedule_init();
+                await schedule_init();
                 setCookie('state','schedule', 1);
-                setCookie('user', userdetails, 1);
+                setCookie('user', JSON.stringify(userdetails), 1);
         }
 
         if(id == 2){
@@ -440,73 +539,141 @@
     }
 
     async function schedule_init(){
+
+        let {status, message} = await getData("GET", "/api/account/" + userdetails['id'] + "/schedules")
+        console.log(status + " " + message);
+
+        if(status == "Error"){
+            
+        }
+
+        if(status == "Empty"){
+            //display
+            document.querySelector('#empty').innerHTML = message;
+        }
+
+        cardsData = JSON.parse(message);
+        let cards = await compose_card(cardsData);
+
+        document.querySelector('.cards').innerHTML = cards;
         
-        const logo = document.querySelector(".cards");
-            const boxs = document.querySelectorAll(".card");
+        // const logo = document.querySelector(".cards");
+        //     const boxs = document.querySelectorAll(".card");
 
-            boxs.forEach(box => {
-                box.addEventListener("click", function() {
-                    boxs.forEach(b => {
-                        if(b !== box) {
-                            b.style.display = "none";
-                        }
-                    }); 
-                    box.classList.add('grow');
-                    box.style.backgroundColor="white";
-                });
-            });
+        //     boxs.forEach(box => {
+        //         box.addEventListener("click", function() {
+        //             boxs.forEach(b => {
+        //                 if(b !== box) {
+        //                     b.style.display = "none";
+        //                 }
+        //             }); 
+        //             box.classList.add('grow');
+        //             box.style.backgroundColor="white";
+        //         });
+        //     });
 
-        $('#exampleModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var recipient = button.data('whatever')
-            var modal = $(this)
-            modal.find('.modal-title').text('New schedule ' + recipient)
-            modal.find('.modal-body input').val(recipient)
-        })
+        // $('#exampleModal').on('show.bs.modal', function (event) {
+        //     var button = $(event.relatedTarget)
+        //     var recipient = button.data('whatever')
+        //     var modal = $(this)
+        //     modal.find('.modal-title').text('New schedule ' + recipient)
+        //     modal.find('.modal-body input').val(recipient)
+        // })
 
-        const btn_submit = document.querySelector(".btn-submit");
+        // const btn_submit = document.querySelector(".btn-submit");
 
-        btn_submit.addEventListener('click', e =>{
-            const modal = document.querySelector(".modal");
-            const modalOpen = document.querySelector(".modal-open");
-            const modalback = document.querySelector(".modal-backdrop");
+        // btn_submit.addEventListener('click', e =>{
+        //     const modal = document.querySelector(".modal");
+        //     const modalOpen = document.querySelector(".modal-open");
+        //     const modalback = document.querySelector(".modal-backdrop");
 
-            const instructor = document.querySelector(".instructor").value;
-            const subject = document.querySelector(".subject").value;
-            const time = document.querySelector(".time").value;
-            const val = document.querySelector(".value").value;
+        //     const instructor = document.querySelector(".instructor").value;
+        //     const subject = document.querySelector(".subject").value;
+        //     const time = document.querySelector(".time").value;
+        //     const val = document.querySelector(".value").value;
 
 
-            console.log("-------------");
+        //     console.log("-------------");
 
-            console.log(val);
-            console.log(instructor);
-            console.log(subject);
-            console.log(time);
+        //     console.log(val);
+        //     console.log(instructor);
+        //     console.log(subject);
+        //     console.log(time);
 
-            modal.style.display = "none";
-            modal.classList.remove("show");
-            modalback.remove();
-            modalOpen.classList.remove("modal-open");
+        //     modal.style.display = "none";
+        //     modal.classList.remove("show");
+        //     modalback.remove();
+        //     modalOpen.classList.remove("modal-open");
 
-            const modalElement = document.querySelector('[aria-modal="true"]');
+        //     const modalElement = document.querySelector('[aria-modal="true"]');
 
-            modalElement.removeAttribute('aria-modal');
-            modalElement.setAttribute('aria-hidden', 'true');
-        })
+        //     modalElement.removeAttribute('aria-modal');
+        //     modalElement.setAttribute('aria-hidden', 'true');
+        // })
 
     }
 
-    async function compose_card(objects, limit){
+    async function compose_card(objects){
         var constructed = ""; 
-        // console.log(objects.length());
-        for(let i = 0; i < objects.length && i < limit; i++){
+        var c = 1;
+
+        for(let i = 0; i < objects.length; i++){
+            var color = "";
+
+
+            if(c == 1){
+                color = "#0172B7";
+                c++;
+            } else {
+                color = "#146C94";
+                c++;
+                c = 1;
+            }
+ 
+            var day = objects[i]['weekslot'].substring(0, 3);
+            day = day.toUpperCase();
+
             let component = 
-            `<div class='card'>
-                <p>` + objects[i]["subjectcode"] + `</p>
-                <p>` + objects[i]["timeslot"] + `</p>
-                <p>` + objects[i]["weekslot"] + `</p>
-            </div> \n`;
+            `<div class="card" style="
+            padding: 20px;
+            background: ` + color + `;
+            ">
+                <div style="
+                    display: flex;
+                ">
+                    <div style="
+                        height: 50px;
+                        background-color: white;
+                        text-align: center;
+                        border-radius: 10px;
+                    ">
+                        <p style="
+                            margin: 10px;
+                            font-size: 18px;
+                            font-weight: 700;
+                            color: ` + color + `;
+                        ">` + day + `</p>
+                    </div>
+
+                    <div>
+                        <p style="                        
+                            margin-left: 20px;
+                            font-size: 18px;
+                            font-weight: 900;
+                        ">` + objects[i]['batch']['course'] + " - " + objects[i]['batch']['section'] + `</p>
+                        <p style="
+                            margin-left: 20px;
+                            font-size: 14px;
+                            font-weight: 600;
+                        ">` + objects[i]['start_at'] + " - " + objects[i]['end_at'] + `</p>
+                    </div>
+                </div>
+
+                <p style="
+                    font-size: 14px;
+                    margin-top: 5px;
+                ">` + objects[i]['subjectcode'] + " - " + objects[i]['subjectname'] +`</p>
+            </div>`;
 
             console.log(component);
 
@@ -527,9 +694,11 @@
             }
         });
 
+        console.log(userdetails['id'] + " hey");
+
         //get schedules
         let {status, message} = await getData("GET", "/api/schedule/" 
-        + currentUser.id + "/current-schedule");
+        + userdetails['id'] + "/current-schedule");
 
         console.log(status);
             if(status == "Error"){
@@ -547,7 +716,7 @@
                     font-weight: 700;
                     min-width: 500px;
                     max-width: 500px;
-                    ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+                    ">Welcome, ` + (userdetails["sex"] == "Male" ? "Sir " : "Ma'am ") + userdetails['firstname'] + " " + userdetails['lastname'] + `!</p>
                     <div style="
                     margin-top: 5px;
                     ">
@@ -585,7 +754,7 @@
                     font-weight: 700;
                     min-width: 500px;
                     max-width: 500px;
-                    ">Welcome, ` + (currentUser.sex == "Male" ? "Sir " : "Ma'am ") + currentUser.name + `!</p>
+                    ">Welcome, ` + (userdetails["sex"] == "Male" ? "Sir " : "Ma'am ") + userdetails['firstname'] + " " + userdetails['lastname'] + `!</p>
                     <div style="
                     margin-top: 5px;
                     ">

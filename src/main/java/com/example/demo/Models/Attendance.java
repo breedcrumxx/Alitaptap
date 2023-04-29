@@ -24,21 +24,26 @@ public class Attendance {
     private String DateTime;
     private String Status;
     private String Batch;
+    private String rfid;
     private int Schedule;
     private String CurrentClass;
     private String CurrentInstructor;
 
-    public Attendance(String FirstName, String LastName, String MiddleName, String DateTime, String Status, String Batch, int Schedule, String CurrentClass, String CurrentInstructor) {
+    public Attendance(String FirstName, String LastName, String MiddleName, String DateTime, String Status, String Batch, String rfid, int Schedule, String CurrentClass, String CurrentInstructor) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.MiddleName = MiddleName;
         this.DateTime = DateTime;
         this.Status = Status;
         this.Batch = Batch;
+        this.rfid = rfid;
         this.Schedule = Schedule;
         this.CurrentClass = CurrentClass;
         this.CurrentInstructor = CurrentInstructor;
     }
 
-
+    public Attendance(){
+        
+    }
+  
 }

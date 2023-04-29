@@ -51,6 +51,15 @@ public class scheduleController {
         Account Instructor = accountRepository.findAccountById(sched.getInstructor());
         sched.setInstructor(Instructor);
 
+        Schedule verifyScheduleTime = scheduleService.verify(sched.getStartAt(), sched.getEndAt());
+
+        if(verifyScheduleTime != null){
+            response.status = "Error";
+            response.message = "There is a time conflict with the other schedule, please adjust.";
+
+            return response;
+        }
+
         Schedule create = scheduleService.create(sched);
 
         if(create == null){

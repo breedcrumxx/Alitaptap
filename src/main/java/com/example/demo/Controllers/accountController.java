@@ -131,7 +131,7 @@ public class accountController {
         } catch (JsonProcessingException e) {
             response.status = "Error";
             response.message = "Error processing your request, internal server error.";
-
+            System.out.println(e.toString());
             return response;
         }
 

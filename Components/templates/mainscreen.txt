@@ -1,8 +1,12 @@
 <div class="container">
     <!-- nav div -->
     <div class="nav">
-        <div class="logo">
-            <img src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81quLCkVXEhAPDpDSd25iRuXgSpmNuiwXH-1GL-NszvIDCam3AAaJCo_cVWdssEFrIftA50gby5jiLWkOk4K7qxJS4bNqA=s2560" alt="company-logo" class="comp-logo">
+        <div class="logo" style="
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        ">
+            <img style="width: 110px;" src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81quLCkVXEhAPDpDSd25iRuXgSpmNuiwXH-1GL-NszvIDCam3AAaJCo_cVWdssEFrIftA50gby5jiLWkOk4K7qxJS4bNqA=s2560" alt="company-logo" class="comp-logo">
         </div>
 
         <ul>
@@ -78,12 +82,12 @@
             font-size: 18px;
             font-weight: 700;
             margin-top: 0px;
-        " id="username">Dan Rosete</p>
+        " id="user-name"></p>
         <p style="
             font-size: 16px;
             font-weight: 600;
             line-height: 10px;
-        " id="role">Instructor</p>
+        " id="role"></p>
 
         <textarea style="
             height: 135px;
@@ -147,6 +151,72 @@
     </div>
     <!-- End of user settings -->
 
+    <!-- create schedule -->
+    <div id="schedule-float" style="
+        position: absolute;
+        right: -290px;
+        width: 290px;
+        height: 100%;
+        background-color: white;
+        box-shadow: 0 3px 5px 2px #c0c6ca;
+        z-index: 0;
+        padding: 18px;
+        transition: 1s;
+    ">
+        <p style="
+            font-size: 14px;
+            text-align: right;
+            margin-bottom: 10px;
+            cursor: pointer;
+        " onclick="hideScheduleForm()">Close</p>
+        <h2>Create Schedule</h2>
+        <p id="schedule-error-placer" style="
+            margin: 20px 0;
+            color: red;
+        "></p>
+        <form id="schedule-form">
+            <label class="schedule-label">Subject name: </label>
+            <input class="schedule-input" name="subjectname" type="text" placeholder="Subject name"><br>
+            <label class="schedule-label">Subject code: </label> 
+            <input class="schedule-input" name="subjectcode" type="text" placeholder="Subject code"><br>
+            <label class="schedule-label">Subject description: </label>
+            <input class="schedule-input" name="subjectdesc" type="text" placeholder="Subject description"><br>
+
+            <div style="display: flex;">
+                <div>
+                    <label class="schedule-label">Start at: </label><br>
+                    <input name="start_at" type="time">
+                </div>
+                <div>
+                    <label class="schedule-label">End at: </label><br>
+                    <input name="end_at" type="time">
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <div>
+                    <label class="schedule-label">Batch: </label><br>
+                    <select id="batch" name="batch">
+                    </select>
+                </div>
+                <div>
+                    <label class="schedule-label">Week slot: </label><br>
+                    <select name="weekslot">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                    </select>
+                </div>
+            </div>
+
+            <input type="button" value="Create" onclick="createSchedule()">
+        </form>
+    </div>
+    <!-- End of create schedule -->
+
     <!-- left sidebar -->
     <div class="right-sidebar">
         <div class="circle-container" style="margin-top: 10px">
@@ -154,13 +224,12 @@
 
             <div class="space">
                 <div class="circle extra"></div>
-                <div class="circle extra"></div>
+                <div class="circle extra" onclick="openScheduleForm()"></div>
                 <div class="circle extra" onclick="showUserSettings()"></div>
             </div>
         </div>
     </div> 
     <!-- left sidebar -->
-
 
 </div> 
 <!-- ending of container div -->

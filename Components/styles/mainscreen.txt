@@ -114,12 +114,6 @@
 
     /* End of left sidebar config */
 
-    .logo {
-        position: absolute;
-        top: 428px;
-        left: 30px;
-    }
-
     .right-sidebar {
         position: fixed;
         right: 0;
@@ -182,6 +176,15 @@
     }
     .clickable {
         cursor: pointer;
+    }
+
+    .schedule-label {
+        font-size: 14px;
+    }
+
+    .schedule-input {
+        margin: 0;
+        margin-bottom: 5px;
     }
 
 </style>

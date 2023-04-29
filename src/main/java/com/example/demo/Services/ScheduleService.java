@@ -61,21 +61,29 @@ public class ScheduleService {
         return schedules;
     }
 
-    public Schedule getScheduleByDayAndTime(String day, String time){
-        return null;
-    }
+    // public Schedule getScheduleByDayAndTime(String day, String time){
+    //     return null;
+    // }
 
     public Schedule getStudentSchedule(int batchId, String today, String time) {
         return scheduleRepository.getBatchScheduleToday(batchId, today, time);
     }
 
-    public Schedule getStudentSchedule(int batchId, String today, String time, int schedid){
-        return null;
-    }
+    // public Schedule getStudentSchedule(int batchId, String today, String time, int schedid){
+    //     return null;
+    // }
 
     public Schedule getScheduleAsOfNow(String today, String timeStamp) { // to get the current schedule and to check if the student is in the include list
 
         return scheduleRepository.getScheduleTodayThisTime(today, timeStamp);
+    }
+
+    public Schedule verifyLate(int currentSchedId, String timeStamp) {
+        return scheduleRepository.verifyLate(currentSchedId, timeStamp);
+    }
+
+    public Schedule verify(String startAt, String endAt) {
+        return scheduleRepository.checkScheduleTime(startAt, endAt);
     }
     
 }

@@ -83,6 +83,7 @@ public class RFIDController {
             String firstname = currStd.getFirstName();
             String lastname = currStd.getLastName();
             String middlename = currStd.getMiddleName();
+            String rfid = currStd.getStudentRFID().getRfid();
             String atDateTime = currentDateTime;
 
             //verify if the log record to see if in or out
@@ -103,12 +104,24 @@ public class RFIDController {
                     if(currStd.equals(student)){  // is naturally or included in the schedule
 
                         String status = "On time"; // craete a method to identify if late or not
+                        // String schedStartAt = schedule.getStartAt();
+                        // String schedEndAt = schedule.getEndAt();
 
-                        Attendance attendance = new Attendance(firstname, lastname, middlename, atDateTime, status, schedule.getBatch().getCourse() + "-" + schedule.getBatch().getSection(), schedule.getId(), schedule.getSubjectCode(), instructor.getLastName() + ", " + instructor.getLastName());
-                        attendanceService.create(attendance);
+                        Attendance verifyAttendance = attendanceService.verify(currStd.getStudentRFID().getRfid(), schedule.getSubjectCode());
 
-                        // new Attendance(firstname, lastname, middlename, currentDateTime, status, atDateTime, 0, logStatus, status);
-                        
+                        if(verifyAttendance == null){
+                            //check if the student is late or not
+
+                            Schedule verifyLate = scheduleService.verifyLate(schedule.getId(), timeStamp);
+
+                            if(verifyLate == null){
+                                status = "Late";
+                            }
+
+                            Attendance attendance = new Attendance(firstname, lastname, middlename, atDateTime, status, schedule.getBatch().getCourse() + "-" + schedule.getBatch().getSection(), rfid, schedule.getId(), schedule.getSubjectCode(), instructor.getLastName() + ", " + instructor.getLastName());
+                            attendanceService.create(attendance);
+                        }
+
                         // condition to determin the log status
                         if(verify == null){
                             logStatus = "In";
@@ -147,7 +160,9 @@ public class RFIDController {
                 }
 
                 Log log = new Log(firstname, lastname, middlename, currStd.getStudentRFID().getRfid(), "Student", currentDateTime, logStatus, "Unscheduled", schedule.getSubjectCode(), instructor.getLastName() + ", " + instructor.getLastName());
+
                 logService.create(log);
+
                 System.out.println("excluded");
                 return;
             }
@@ -164,7 +179,7 @@ public class RFIDController {
                     List<Student> students = studentService.getStudents(currentSchedule.getBatch().getId(), currentSchedule.getId()); // get all students form schedule today
                     List<Student> excluded = studentService.getExcludedStudents(currentSchedule.getId()); // all students from schedule today
                     Account instructor = accountService.getAccountById(currentSchedule.getInstructor());
-                    System.out.println(instructor.toString());
+                    // System.out.println(instructor.toString());
 
                     // check get all the students in todays schedule
 
@@ -189,9 +204,19 @@ public class RFIDController {
                             String status = "On time"; //  create method to identify if the student is late or not
                             String batch = currStd.getBatchId().getCourse() + "-" + currStd.getBatchId().getSection();
 
+                            Attendance attendanceVerify = attendanceService.verify(currStd.getStudentRFID().getRfid(), currentSchedule.getSubjectCode());
+
                             // create attendance 
-                            Attendance attendance = new Attendance(firstname, lastname, middlename, atDateTime, status, batch, currentSchedId, currentSchedule.getSubjectCode(), currentInstructor);
-                            attendanceService.create(attendance);
+                            if(attendanceVerify == null){
+                                Schedule verifyLate = scheduleService.verifyLate(currentSchedId, timeStamp);
+
+                                if(verifyLate == null){
+                                    status = "Late";
+                                }
+
+                                Attendance attendance = new Attendance(firstname, lastname, middlename, atDateTime, status, batch, rfid, currentSchedId, currentSchedule.getSubjectCode(), currentInstructor);
+                                attendanceService.create(attendance);
+                            }
                             
                             // condition to determin the log status
                             if(verify == null){
