@@ -44,7 +44,7 @@ public class Log {
     @JsonProperty("currclass")
     private String CurrentClass;
 
-    @JsonProperty("currclass")
+    @JsonProperty("currInstructor")
     private String CurrentInstructor;
 
     public Log(String Firstname, String Lastname, String Middlename, String RFID, String Role, String Datetime, String Status, String Type, String CurrentClass, String CurrentInstructor) {

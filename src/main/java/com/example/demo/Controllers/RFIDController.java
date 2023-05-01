@@ -4,10 +4,10 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
-import org.hibernate.type.descriptor.jdbc.TimestampJdbcType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Models.Account;
 import com.example.demo.Models.Attendance;
+import com.example.demo.Models.JsonResponse;
 import com.example.demo.Models.Log;
 import com.example.demo.Models.RFID;
 import com.example.demo.Models.Schedule;
 import com.example.demo.Models.Student;
-import com.example.demo.Repositories.ScheduleRepository;
 import com.example.demo.Services.AccountService;
 import com.example.demo.Services.AttendanceService;
 import com.example.demo.Services.LogService;
@@ -48,6 +48,24 @@ public class RFIDController {
 
     @Autowired
     LogService logService;
+
+    @GetMapping(path = "/verify/{rfid}")
+    private JsonResponse checkDuplicate(@PathVariable("rfid") String rfvalue){
+        JsonResponse response = new JsonResponse();
+        RFID searched = rfidService.verify(rfvalue);
+
+        if(searched != null){
+            response.status = "Error";
+            response.message = "RFID is already in use by someone.";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = "Unique RFID";
+
+        return response;
+    }
 
     @PostMapping(path = "/verify")
     private void verify(@RequestBody String rfvalue){

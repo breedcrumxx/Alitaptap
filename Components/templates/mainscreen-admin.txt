@@ -20,19 +20,31 @@
                 <b></b>
                 <b></b>
                 <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
-                <span class="label">Schedules</span>
+                <span class="label">Logs</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="today-outline"></ion-icon></span>
+                <span class="label">Instructors</span>
             </a></li>
             <li class="list"><a href="#">
                 <b></b>
                 <b></b>
                 <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
-                <span class="label">Help</span>
+                <span class="label">Classes</span>
             </a></li>
             <li class="list"><a href="#">
                 <b></b>
                 <b></b>
-                <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
-                <span class="label">Logout</span>
+                <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                <span class="label">Student</span>
+            </a></li>
+            <li class="list"><a href="#">
+                <b></b>
+                <b></b>
+                <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                <span class="label">Inventory</span>
             </a></li>
         </ul>
     </div>

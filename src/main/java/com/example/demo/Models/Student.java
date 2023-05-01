@@ -3,6 +3,7 @@ package com.example.demo.Models;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -56,6 +57,7 @@ public class Student {
     @JsonProperty("rfid")
     @OneToOne
     @JoinColumn(name = "rfid_id")
+    @JsonBackReference
     private RFID StudentRFID;
     
     public Student(){

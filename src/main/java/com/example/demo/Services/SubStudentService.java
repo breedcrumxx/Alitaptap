@@ -30,6 +30,10 @@ public class SubStudentService {
         return true;
     }
 
+    public SubStudent exclude(SubStudent substd) {
+        return subStudentRepository.save(substd);
+    }
+
  
 }
 

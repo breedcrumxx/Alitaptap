@@ -6,7 +6,7 @@
             font-weight: 600;
             padding-bottom: 10px;
             display: inline-block;
-        ">Schedules</p>
+        ">Instructors</p>
 
         <hr style="
             width: 620px;
@@ -44,9 +44,11 @@
         </svg> -->
     </div>
 
-    <div class="schedules">
+    <div class="schedules" style="
+        margin-top: 13px;
+    ">
         <h2 id="empty"></h2>
-        <div class="cards">
+        <div id="instructor-container" class="cards">
         </div> <!-- cards -->
     </div> <!-- schedule -->
 

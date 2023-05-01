@@ -20,20 +20,58 @@ public class subStudentController {
     SubStudentService subStudentService;
     
     //create a method to transfer s student to other schedules
-    @PostMapping(path = "/transfer")
-    private JsonResponse setSubStudent(@RequestBody SubStudent sub){
-        JsonResponse response = new JsonResponse();
-        SubStudent substd = subStudentService.transferStudent(sub);
+    // @PostMapping(path = "/transfer")
+    // private JsonResponse setSubStudent(@RequestBody SubStudent sub){
+    //     JsonResponse response = new JsonResponse();
+    //     SubStudent substd = subStudentService.transferStudent(sub);
 
-        if(substd == null){
+    //     if(substd == null){
+    //         response.status = "Error";
+    //         response.message = "Failed to transfer the student.";
+
+    //         return response;
+    //     }
+
+    //     response.status = "Success";
+    //     response.message = "Successfully transfered the student to other subject";
+
+    //     return response;
+    // }
+
+    @PostMapping(path = "/transfer")
+    private JsonResponse transferToSchedule(@RequestBody SubStudent substd){
+        JsonResponse response = new JsonResponse();
+        SubStudent transfered = subStudentService.transferStudent(substd);
+
+        System.out.println(substd.toString());
+
+        if(transfered == null){
             response.status = "Error";
-            response.message = "Failed to transfer the student.";
+            response.message = "Unable to process your request, internal server error.";
 
             return response;
         }
 
         response.status = "Success";
-        response.message = "Successfully transfered the student to other subject";
+        response.message = "Successfully transfered the student.";
+
+        return response;
+    }
+
+    @PostMapping(path = "/exclude")
+    private JsonResponse excludeStudent(@RequestBody SubStudent sub){
+        JsonResponse response = new JsonResponse();
+        SubStudent excluded = subStudentService.exclude(sub);
+
+        if(excluded == null){
+            response.status = "Error";
+            response.message = "Unable to process your request, internal server error.";
+
+            return response;
+        }
+
+        response.status = "Error";
+        response.message = "Successfully excluded the student.";
 
         return response;
     }

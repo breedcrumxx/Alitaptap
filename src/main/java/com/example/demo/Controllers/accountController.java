@@ -20,6 +20,7 @@ import com.example.demo.Models.Schedule;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.AccountRepository;
 import com.example.demo.Repositories.ScheduleRepository;
+import com.example.demo.Services.AccountService;
 import com.example.demo.Services.RFIDService;
 import com.example.demo.Services.ScheduleService;
 import com.example.demo.Services.StudentService;
@@ -97,6 +98,26 @@ public class accountController {
 
         response.status = "Success";
         response.message = "Successfully created your account!";
+
+        return response;
+    }
+
+    @GetMapping(path = "/verify/{username}")
+    private JsonResponse verifyUsername(@PathVariable String username){
+
+        System.out.println(username);
+        JsonResponse response = new JsonResponse();
+        Account match = accountRepository.findAccount(username);
+
+        if(match != null){
+            response.status = "Used";
+            response.message = "Username is already in used.";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = "Unique username.";
 
         return response;
     }
@@ -232,4 +253,35 @@ public class accountController {
         return response;
     }
 
+    @GetMapping(path = "/get-all-instructors")
+    private JsonResponse getAllInstructors(){
+        JsonResponse response = new JsonResponse();
+        List<Account> instructors = accountRepository.getAllInstructors();
+
+        if(instructors == null || instructors.size() == 0){
+            response.status = "Success";
+            response.message = "No instructors yet.";
+
+            return response;
+        }
+
+        ObjectMapper map = new ObjectMapper();
+        String json = "";
+
+        try {
+			json = map.writeValueAsString(instructors);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+            response.status = "Error";
+            response.message = "Unable to process your request, internal server error.";
+
+            return response;
+		}
+
+        response.status = "Success";
+        response.message = json;
+
+        return response;
+    }
 }

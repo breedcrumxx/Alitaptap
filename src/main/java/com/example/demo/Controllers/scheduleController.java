@@ -134,6 +134,39 @@ public class scheduleController {
         return response;
     }
 
+    @GetMapping(path = "/{schedid}/get-all-schedules")
+    private JsonResponse getAllSchedules(@PathVariable int schedid){
+        JsonResponse response = new JsonResponse();
+        List<Schedule> schedules = scheduleService.getAllSchedulesButThis(schedid);
+
+        if(schedules == null || schedules.size() == 0){
+            response.status = "Success";
+            response.message = "No other schedule found.";
+
+            return response;
+        }
+
+        ObjectMapper map = new ObjectMapper();
+        String json = "";
+
+        try {
+            json = map.writeValueAsString(schedules);
+            System.out.println(json);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            response.status = "Error";
+            response.message = "Unable to process your request, internal server error.";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = json;
+
+        return response;
+    }
+
     @PutMapping(path = "/update-schedule")
     private JsonResponse updateSchedule(@RequestBody Schedule sched){
         JsonResponse response = new JsonResponse();

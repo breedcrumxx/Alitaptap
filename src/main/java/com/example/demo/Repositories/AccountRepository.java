@@ -1,5 +1,7 @@
 package com.example.demo.Repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,5 +21,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
 
     @Query(value = "select * from account where id=:id", nativeQuery = true)
     Account getAccountById(@Param("id") int instructor);
+
+    @Query(value = "select * from account where role='Instructor'", nativeQuery = true)
+	List<Account> getAllInstructors();
 
 }

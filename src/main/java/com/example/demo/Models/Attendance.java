@@ -17,7 +17,6 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-
     private String FirstName;
     private String LastName;
     private String MiddleName;

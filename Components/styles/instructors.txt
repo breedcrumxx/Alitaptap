@@ -5,20 +5,6 @@
         color: #646464;
     }
 
-    #containerGrey{
-        width: 710px;
-        height: 93px;
-        margin-top: 13px;
-        left: 276px;
-        top: 79px;
-        background: #D9D9D9;
-        border-radius: 10px;
-    }
-
-    .schedules {
-        margin-top: 13px;
-    }
-
     .cards {
         margin-top: 6px;
         width: 730px;

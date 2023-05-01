@@ -24,7 +24,7 @@ public class SubStudent {
     @JsonProperty("student")
     private int StudentId;
 
-    @JsonProperty("status")
+    @JsonProperty("stat")
     private String Status;
 
     @JsonProperty("schedule")
@@ -33,4 +33,15 @@ public class SubStudent {
     public SubStudent(){
 
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " Id='" + getId() + "'" +
+            ", StudentId='" + getStudentId() + "'" +
+            ", Status='" + getStatus() + "'" +
+            ", Schedule='" + getSchedule() + "'" +
+            "}";
+    }
+
 }

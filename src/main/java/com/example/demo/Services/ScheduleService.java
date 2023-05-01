@@ -85,5 +85,9 @@ public class ScheduleService {
     public Schedule verify(String startAt, String endAt) {
         return scheduleRepository.checkScheduleTime(startAt, endAt);
     }
+
+    public List<Schedule> getAllSchedulesButThis(int schedid) {
+        return scheduleRepository.getSchedule(schedid);
+    }
     
 }

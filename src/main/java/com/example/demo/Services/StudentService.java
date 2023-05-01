@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Models.FormattedAttendance;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.BatchRepository;
+import com.example.demo.Repositories.FormattedAttendanceInterface;
 import com.example.demo.Repositories.ScheduleRepository;
 import com.example.demo.Repositories.StudentRepository;
 
@@ -65,6 +67,14 @@ public class StudentService {
 
     public Student getStudentByRfid(int id) {
         return studentRepository.getByRfid(id);
+    }
+
+    public List<Student> getStudentsFromThisSchedule(int batchid, int schedid) {
+        return studentRepository.getStudentsFromThisSchedule(batchid, schedid);
+    }
+
+    public List<FormattedAttendanceInterface> getStudentRecords(int schedid){
+        return studentRepository.getStudentRecords(schedid);
     }
 
     // public Student getStudentByRFID(String rfid) {

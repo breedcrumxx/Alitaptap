@@ -34,4 +34,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
     @Query(value = "select * from schedule where (start_at<=:startat AND end_at>=:startat) OR (start_at<=:endat AND end_at>=:endat)", nativeQuery = true)
     Schedule checkScheduleTime(@Param("startat") String startAt, @Param("endat") String endAt);
+
+    @Query(value = "Select * from schedule where id!=:id", nativeQuery = true)
+    List<Schedule> getSchedule(@Param("id") int schedid);
 }

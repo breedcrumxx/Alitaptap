@@ -1,0 +1,85 @@
+<div class="wrapper">
+    <div>
+        <p style="
+            padding-top: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            ">Dashboard</p>
+    </div>
+
+    <div class="greeting" style="
+    display: flex;
+    width: 760px;
+    height: 150px;
+    background-color: #D7E7F3;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 3px 5px 2px #c0c6ca;">
+        <div>
+            <p style="
+            font-size: 25px;
+            font-weight: 700;
+            ">Welcome, Sir Dan Rosete!</p>
+            <div style="margin-top: 5px;">
+                <p style="
+                font-size:18px;
+                font-weight: 500;">A great day to manage the computer lab.</p>
+                <p style="
+                font-size:18px;
+                font-weight: 500;
+                position:relative;
+                top: -10px;">You have 3 class scheduled for today.</p>
+            </div>
+        </div>
+        <div style="padding-left: 200px; margin-top: 10px;">            
+            <p style="
+            font-size: 18px;
+            font-weight: 600;">Thu, 20 Apr 2023 14:57</p>
+            <p>Partly cloudy<span style="display:inline-block;"><img style="width:25px; height:25px;" src="` + weatherNow["current"]["condition"]["icon"] + `"></img><span></p>
+        </div>
+    </div>
+    
+    <div class="activitiess" style="
+        display: flex; 
+        margin-top: 13px; gap: 20px;
+        width: 94%;    
+        height: 350px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 5px 2px #c0c6ca;
+    ">  
+        <div id="actdivs">
+            <p class="headerTxt">Recent activities</p>
+            <table id="log-table" class="table">
+                <tbody>
+                    <tr>
+                        <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                        <td class="spacing">Teaching hours</td>
+                    </tr>
+                    <tr>
+                        <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                        <td class="spacing">Teaching hours</td>
+                    </tr>
+                    <tr>
+                        <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                        <td class="spacing">Teaching hours</td>
+                    </tr>
+                    <tr>
+                        <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                        <td class="spacing">Teaching hours</td>
+                    </tr>
+                    <tr>
+                        <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                        <td class="spacing">Teaching hours</td>
+                    </tr>
+                    <tr>
+                        <td>IN | THU | MATH <p class="p">-10:01 AM</p></td>
+                        <td class="spacing">Teaching hours</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
