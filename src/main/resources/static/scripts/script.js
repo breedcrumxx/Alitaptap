@@ -641,6 +641,9 @@
             alert(message);
             location.reload();
         }
+        if(status == "Empty"){
+            return;
+        }
 
         const logs = JSON.parse(message);
 
