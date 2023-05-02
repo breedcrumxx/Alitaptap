@@ -48,7 +48,7 @@
         margin-top: 13px;
     ">
         <h2 id="empty"></h2>
-        <div id="instructor-container" class="cards">
+        <div id="instructor-container" class="cards"> 
         </div> <!-- cards -->
     </div> <!-- schedule -->
 

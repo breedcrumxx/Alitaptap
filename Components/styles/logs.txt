@@ -122,6 +122,7 @@
         font-family: sans-serif;
         min-width: 400px;
         max-height: 500px;
+        min-height: 500px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
 
@@ -136,6 +137,10 @@
 
     .styled-table tbody {
         overflow-y: scroll;
+        -webkit-mask-image:linear-gradient(to left, transparent 17px, #F5FEFD 17px);
+        -webkit-mask-size: 100% 20000px;
+        -webkit-mask-position: left bottom;
+        
     }
 
     .styled-table th,
@@ -161,5 +166,32 @@
         font-weight: bold;
         color: #009879;
     }
+    
+
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        }
+         
+        tbody td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        }
+
+        tbody {
+        display: block;
+        height: 480px; /* Set the height of the tbody */
+        overflow-y: scroll; /* Enable vertical scrolling */
+        }
+
+        /* Hide scrollbar from the table header */
+        thead {
+        display: table;
+        width: calc(100% - 17px);
+        }
+
+
+
+
 
 </style>

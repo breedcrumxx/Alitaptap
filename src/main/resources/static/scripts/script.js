@@ -646,12 +646,21 @@
         }
 
         const logs = JSON.parse(message);
-
+        
         let logContainer = ``;
         for(var i = 0; i < logs.length; i++){
             let container = `
-                ` + JSON.stringify(logs[i]) + `
+                <tr>
+                    <td>` + (i+1) + `</td>
+                    <td>` + logs[i]['firstname'] + " " + logs[i]['middle'] + " " + logs[i]['lastname'] + `</td>
+                    <td>` + logs[i]['role'] + `</td>
+                    <td>` + logs[i]['status'] + `</td>
+                    <td>` + logs[i]['type'] + `</td>
+                    <td>` + logs[i]['currClass'] + `</td>
+                    <td>` + logs[i]['currInstructor'] + `</td>
+                </tr>
             `;
+
             logContainer += container;
         }
 
@@ -733,6 +742,7 @@
 
             logContainer += container;
         }
+        
 
         document.querySelector('#log-table').innerHTML = logContainer;
 
@@ -749,16 +759,23 @@
 
         let instContainer = ``;
         for(var i = 0; i < instructors.length; i++){
-
             let container = `
-                ` + JSON.stringify(instructors[i]) + `
+                  ` + (i+1) + `</td>
+                  ` + instructors[i]['username'] + `</td>
+                  ` + instructors[i]['password'] + `</td>
+                  ` + instructors[i]['firstname'] + " " + instructors[i]['middle'] + " " + instructors[i]['lastname'] + `</td>
+                  ` + instructors[i]['sex'] + `</td>
+                  ` + instructors[i]['role'] + `</td>
+               
             `;
+
             instContainer += container;
         }
-
         console.log(instContainer);
+       
 
         document.querySelector('#instructor-container').innerHTML = instContainer;
+     
 
 
 
