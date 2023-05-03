@@ -259,7 +259,7 @@ public class accountController {
         List<Account> instructors = accountRepository.getAllInstructors();
 
         if(instructors == null || instructors.size() == 0){
-            response.status = "Success";
+            response.status = "Empty";
             response.message = "No instructors yet.";
 
             return response;

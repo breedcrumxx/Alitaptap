@@ -30,5 +30,12 @@ public class RFIDService {
         return create(rfid);
     }
 
+    public RFID getRfidById(int id) {
+        return rfidRepository.getRfidById(id);
+    }
+
+    public void update(RFID studentRFID) {
+    }
+
     
 }

@@ -1,0 +1,50 @@
+<div class="wrapper"> 
+    <div>
+        <p style="
+            padding-top: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            display: inline-block;
+        ">Students</p>
+
+        <hr style="
+            width: 320px;
+            display: inline-block;
+            position: relative;
+            top: -3px;
+        ">
+
+        <form style="
+            display: inline-block;
+        ">
+            <input id="search" type="text" placeholder="Search" style="
+                max-width: 200px;
+            " onkeyup="check()" value="">
+            
+            <select id="filter-box">
+                <option value="" disabled selected>Filter by: </option>
+                <option value="first_name">By first name</option>
+                <option value="middle_name">By middle name</option>
+                <option value="student_id">By student ID</option>
+                <option value="last_name">By last name</option>
+                <option value="batch">By class</option>
+                <option value="address">By address</option>
+            </select>
+        </form>
+
+        <table class="styled-table">
+            <thead id="table-head">
+                <tr>
+                    <th>#</th>
+                    <th>Student name</th>
+                    <th>Course and section</th>
+                    <th>Student ID</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="table-container">
+            </tbody>
+        </table>
+</div>

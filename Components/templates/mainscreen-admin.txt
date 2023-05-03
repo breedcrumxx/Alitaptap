@@ -38,7 +38,7 @@
                 <b></b>
                 <b></b>
                 <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
-                <span class="label">Student</span>
+                <span class="label">Students</span>
             </a></li>
             <li class="list"><a href="#">
                 <b></b>
@@ -57,7 +57,7 @@
 
     <div id="blur-placer"></div>
     <!-- User settings -->
-    <div style="
+    <div class="floater" style="
         position: absolute;
         right: -290px;
         width: 290px;
@@ -151,8 +151,8 @@
     </div>
     <!-- End of user settings -->
 
-    <!-- create schedule -->
-    <div id="schedule-float" style="
+    <!-- register schedule -->
+    <div id="student-float" class="floater" style="
         position: absolute;
         right: -290px;
         width: 290px;
@@ -168,57 +168,47 @@
             text-align: right;
             margin-bottom: 10px;
             cursor: pointer;
-        " onclick="hideScheduleForm()">Close</p>
-        <h2>Create Schedule</h2>
-        <p id="schedule-error-placer" style="
+        " onclick="hideRegisterStudent()">Close</p>
+        <h2 id="student-modal-title"></h2>
+        <p id="student-error-placer" style="
             margin: 20px 0;
             color: red;
         "></p>
-        <form id="schedule-form">
-            <label class="schedule-label">Subject name: </label>
-            <input class="schedule-input" id="subjectname" name="subjectname" type="text" placeholder="Subject name"><br>
-            <label class="schedule-label">Subject code: </label> 
-            <input class="schedule-input" id="subjectcode" name="subjectcode" type="text" placeholder="Subject code"><br>
-            <label class="schedule-label">Subject description: </label>
-            <input class="schedule-input" id="subjectdesc" name="subjectdesc" type="text" placeholder="Subject description"><br>
-
-            <div style="display: flex;">
-                <div>
-                    <label class="schedule-label">Start at: </label><br>
-                    <input id="start_at" name="start_at" type="time">
-                </div>
-                <div>
-                    <label class="schedule-label">End at: </label><br>
-                    <input id="end_at" name="end_at" type="time">
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <div>
-                    <label class="schedule-label">Batch: </label><br>
-                    <select id="batch" name="batch">
-                    </select>
-                </div>
-                <div>
-                    <label class="schedule-label">Week slot: </label><br>
-                    <select name="weekslot">
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                    </select>
-                </div>
-            </div>
-
-            <input type="button" value="Create" onclick="createSchedule()">
+        <form id="student-form">
         </form>
     </div>
-    <!-- End of create schedule -->
+    <!-- End of register student -->
+
+    <!-- universal float -->
+    <div id="universal-float" class="floater" style="
+        position: absolute;
+        right: -290px;
+        width: 290px;
+        height: 100%;
+        background-color: white;
+        box-shadow: 0 3px 5px 2px #c0c6ca;
+        z-index: 0;
+        padding: 18px;
+        transition: 1s;
+    ">
+        <p style="
+            font-size: 14px;
+            text-align: right;
+            margin-bottom: 10px;
+            cursor: pointer;
+        " onclick="hideUniversalFloat()">Close</p>
+        <h2 id="universal-header"></h2>
+        <p id="error-placer" style="
+            margin: 20px 0;
+            color: red;
+        "></p>
+        <form id="universal-form">
+        </form>
+    </div>
+    <!-- End of universal student -->
 
     <!-- transfer modal -->
-    <div id="transfer-float" style="
+    <div id="transfer-float" class="floater" style="
         position: absolute;
         right: -290px;
         width: 290px;
@@ -242,7 +232,7 @@
     <!-- End transfer modal -->
 
     <!-- Drop confirmation modal -->
-    <div id="drop-confirmation-modal" data-schedule="" data-student="" style="
+    <div id="notification-modal" class="floater" data-schedule="" data-student="" style="
         position: absolute;
         top: -290px;
         left: 50%;
@@ -269,9 +259,9 @@
             <div class="circle user"></div>
 
             <div class="space">
-                <div class="circle extra" onclick="refresh()"></div>
-                <div class="circle extra" onclick="openScheduleForm()"></div>
-                <div class="circle extra" onclick="showUserSettings()"></div>
+                <div id="write" class="circle extra" onclick="openStudentForm()"><img style="width: 45px; height: 45px;" src="/scripts/pen.svg"></div>
+                <div class="circle extra" onclick="refresh()"><img style="width: 45px; height: 45px;" src="/scripts/reload.svg"></div>
+                <div id="user-log" class="circle extra" onclick="showUserSettings()"><img style="width: 45px; height: 45px;" src="/scripts/user.svg"></div>
             </div>
         </div>
     </div> 

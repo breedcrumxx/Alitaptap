@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Models.FormattedAttendance;
+import com.example.demo.Models.RFID;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.BatchRepository;
 import com.example.demo.Repositories.FormattedAttendanceInterface;
@@ -24,6 +25,9 @@ public class StudentService {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    RFIDService rfidService;
 
     public boolean exist(String stdid){
         Student student = studentRepository.findByStudentId(stdid);
@@ -50,7 +54,7 @@ public class StudentService {
     }
 
     public List<Student> getStudents() {
-        return studentRepository.findAll();
+        return studentRepository.getStudentsInOrder();
     }
 
     public List<Student> getFromBatchId(int id) {
@@ -76,6 +80,33 @@ public class StudentService {
     public List<FormattedAttendanceInterface> getStudentRecords(int schedid){
         return studentRepository.getStudentRecords(schedid);
     }
+
+    // public Student updateStudent(Student student) {
+    //     Student entity = getStudent(student.getId());
+
+    //     int id = student.getId();
+    //     String firstname = student.getFirstName();
+    //     String middlename = student.getMiddleName();
+    //     String lastname = student.getLastName();
+    //     String address = student.getAddress();
+    //     String studentid = student.getStudentId();
+    //     int batch = student.getBatchId().getId();
+    //     RFID rfid = student.getStudentRFID();
+
+    //     if(entity.getStudentRFID().getRfid() != rfid.getRfid()){
+    //         // change rfid
+    //         RFID tempRFID = rfidService.getRfidById(entity.getStudentRFID().getId());
+    //         tempRFID = rfidService.update()
+
+    //         return null;
+    //     }
+
+
+
+    //     studentRepository.update(id, firstname, middlename, lastname, address, studentid, batch);
+
+    //     return null;
+    // }
 
     // public Student getStudentByRFID(String rfid) {
     //     return studentRepository.getStudentByRFID(rfid);

@@ -20,17 +20,23 @@ import com.example.demo.Models.JsonResponse;
 import com.example.demo.Models.RFID;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.FormattedAttendanceInterface;
+import com.example.demo.Repositories.StudentRepository;
 import com.example.demo.Services.AttendanceService;
 import com.example.demo.Services.BatchService;
 import com.example.demo.Services.RFIDService;
 import com.example.demo.Services.StudentService;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @RestController
 @RequestMapping(path = "/api/student")
 public class studentController {
     
+    private static final String JsonMethod = null;
+
     @Autowired
     StudentService studentService;
 
@@ -81,6 +87,51 @@ public class studentController {
         return response;
     }
 
+    @PostMapping(path = "/update-student")
+    private JsonResponse updateStudent(@RequestBody Student student){
+        JsonResponse response = new JsonResponse();
+
+        //get rfid first 
+        RFID rfid = rfidService.getRfidById(student.getStudentRFID().getId());
+
+        if(!rfid.getRfid().equals(student.getStudentRFID().getRfid())){
+            //changed
+            rfid = rfidService.verify(student.getStudentRFID().getRfid());
+
+            if(rfid != null){
+                response.status = "Error";
+                response.status = "RFID is already in used.";
+
+                return response;
+            }
+            System.out.println(4);
+            rfid = rfidService.create(student.getStudentRFID());
+
+            if(rfid == null){
+                response.status = "Error";
+                response.message = "Unable to process your request, internal server error.";
+
+                return response;
+            }
+        }
+        System.out.println(2);
+        student.setStudentRFID(rfid);
+
+        Student updated = studentService.create(student);
+
+        if(updated == null){
+            response.status = "Error";
+            response.message = "Unable to process your request, internal server error.";
+
+            return response;
+        }
+        System.out.println(3);
+        response.status = "Success";
+        response.message = "Successfully updated a student.";
+
+        return response;
+    }
+
     @GetMapping(path = "/get-student/{id}")
     private JsonResponse getStudent(@PathVariable int id){
         JsonResponse response = new JsonResponse();
@@ -111,23 +162,43 @@ public class studentController {
         return response;
     }
 
-    @PostMapping(path = "/get-students")
+    @GetMapping(path = "/get-students")
     private JsonResponse getStudents(){
         JsonResponse response = new JsonResponse();
         List<Student> students = studentService.getStudents();
 
         if(students.size() == 0){
-            response.status = "Success";
+            response.status = "Empty";
             response.message = "No records found.";
 
             return response;
         }
 
+        // List<Batch> batches = batchService.getAllBatch();
+        // List<Student> finStd = new ArrayList<>();
+
+        // for(Student student: students){
+        //     int batchId = student.getBatchId().getId();
+        //     for(Batch batch: batches){
+        //         if(batch.getId() == batchId){
+        //             student.setBatchId(batch);
+        //             System.out.println(student.toString());
+        //             break;
+        //         }
+        //     }
+
+        //     finStd.add(student);
+        // }
+
         ObjectMapper map = new ObjectMapper();
+        // map.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+        map.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         String json = "";
         try {
             json = map.writeValueAsString(students);
+            System.out.println(json);
         } catch (JsonProcessingException e) {
+            System.out.println(e.toString());
             response.status = "Error";
             response.message = "Error processing your request, internal server error. (Student controller)";
 

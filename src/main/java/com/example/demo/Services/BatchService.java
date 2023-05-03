@@ -1,5 +1,7 @@
 package com.example.demo.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class BatchService {
 
     public Batch getBatch(int batchid) {
         return batchRepository.findBatchById(batchid);
+    }
+
+    public List<Batch> getAllBatch() {
+        return batchRepository.getAllBatch();
     }
 
 

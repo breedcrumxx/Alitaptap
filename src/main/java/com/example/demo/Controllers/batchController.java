@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Models.Batch;
 import com.example.demo.Models.JsonResponse;
 import com.example.demo.Repositories.BatchRepository;
+import com.example.demo.Services.BatchService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -84,7 +85,7 @@ public class batchController {
         return response;
     }
 
-    @PutMapping(path = "/update-batch")
+    @PostMapping(path = "/update-batch")
     private JsonResponse updateBatch(@RequestBody Batch batch){
         JsonResponse response = new JsonResponse();
         Batch updatedBatch = batchRepository.save(batch);
@@ -96,19 +97,8 @@ public class batchController {
             return response;
         }
 
-        String json;
-
-        try {
-            json = map.writeValueAsString(updatedBatch);
-        } catch (JsonProcessingException e) {
-            response.status = "Error";
-            response.message = "Error processing your request.";
-
-            return response;
-        }
-
         response.status = "Success";
-        response.message = json;
+        response.message = "Successfully updated the class.";
 
         return response;
     }
@@ -120,6 +110,39 @@ public class batchController {
 
         response.status = "Success";
         response.message = "Successfully deleted a class.";
+
+        return response;
+    }
+
+    @GetMapping(path = "/get-batch/{id}")
+    private JsonResponse getBatch(@PathVariable int id){
+        JsonResponse response = new JsonResponse();
+
+        Batch batch = batchRepository.getBatchById(id);
+
+        if(batch == null){
+            response.status = "Error";
+            response.message = "Missing data, internal server error.";
+
+            return response;
+        }
+
+        ObjectMapper map = new ObjectMapper();
+        String json = "";
+
+        try {
+            json = map.writeValueAsString(batch);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            System.out.println(e.toString());
+            response.status = "Error";
+            response.message = "Unable to process your request, internal server error";
+
+            return response;
+        }
+
+        response.status = "Success";
+        response.message = json;
 
         return response;
     }

@@ -1,5 +1,7 @@
 package com.example.demo.Repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +15,8 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 
     @Query(value = "select * from batch where id=:batchid", nativeQuery = true)
     Batch getBatchById(@Param("batchid") int batchid);
+
+    @Query(value = "select * from batch", nativeQuery = true)
+    List<Batch> getAllBatch();
     
 }

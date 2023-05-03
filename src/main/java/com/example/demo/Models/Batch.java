@@ -2,9 +2,12 @@ package com.example.demo.Models;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +21,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table( 
     name = "batch",
     uniqueConstraints = {
@@ -46,6 +50,36 @@ public class Batch {
     @JsonProperty("section")
     private String Section;
 
+    public Batch(){
+
+    }
+
+
+    public int getId() {
+        return this.Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
+    public String getCourse() {
+        return this.Course;
+    }
+
+    public void setCourse(String Course) {
+        this.Course = Course;
+    }
+
+    public String getSection() {
+        return this.Section;
+    }
+
+    public void setSection(String Section) {
+        this.Section = Section;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -70,5 +104,7 @@ public class Batch {
             ", Section='" + getSection() + "'" +
             "}";
     }
+
+    
 
 }
